@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/homepage/")
 public class HomeController {
 	@RequestMapping("index")
-	public String index(HttpServletRequest request, HttpSession
-			session) {
-			     return "homepage/index";
-			}
+	public String index(HttpServletRequest request, HttpSession session) {
+		return "homepage/index";
+	}
+
 	@RequestMapping("log-in")
-	public String login(HttpServletRequest request, HttpSession
-			session) {
-			     return "homepage/log-in";
-			}
+	public String login(HttpServletRequest request, HttpSession session) {
+		return "homepage/log-in";
+	}
+
 	@RequestMapping("sign-up")
-	public String signup(HttpServletRequest request, HttpSession
-			session) {
-			     return "homepage/sign-up";
-			}
+	public String signup(HttpServletRequest request, HttpSession session) {
+		return "homepage/sign-up";
+	}
 }

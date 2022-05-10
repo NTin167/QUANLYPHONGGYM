@@ -1,27 +1,26 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script
-	src="<c:url value='/resources/admin/assets/libs/jquery/dist/jquery.min.js'/>"></script>
+	src="<c:url value='/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/quill/quill.min.js"></script>
+<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
-	src="<c:url value='/resources/admin/assets/libs/popper.js/dist/umd/popper.min.js'/>"></script>
+	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script
-	src="<c:url value='/resources/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js'/>"></script>
+	src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js
+    "></script>
+<!-- Template Main JS File -->
+<script src="<c:url value='/resources/admin/js/dataTables.js'/>"></script>
+<script src="<c:url value='/resources/admin/js/main.js'/>"></script>
+<script src="<c:url value='/resources/admin/js/switchElement.js'/>"></script>
 
 
-<script src="<c:url value='/resources/admin/dist/js/feather.min.js'/>"></script>
-<script
-	src="<c:url value='/resources/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js'/>"></script>
-<script src="<c:url value='/resources/admin/dist/js/sidebarmenu.js'/>"></script>
-<script src="<c:url value='/resources/admin/dist/js/custom.min.js'/>"></script>
-<script
-	src="<c:url value='/resources/admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js'/>"></script>
-<script
-	src="<c:url value='/resources/admin/dist/js/pages/datatable/datatable-basic.init.js'/>"></script>
-</body>
-<script src=" <c:url value='/resources/admin/dist/js/fstdropdown.js'/>"></script>
-<script src=" <c:url value='/resources/admin/dist/js/BsMultiSelect.js'/>"></script>
-<script src=" <c:url value='/resources/admin/dist/js/app-style-switcher.js'/>"></script>
-<script
-	src=" <c:url value='/resources/admin/dist/js/customTableData.js'/>"></script>
+
+
 
 
 

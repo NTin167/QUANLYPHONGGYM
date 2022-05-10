@@ -1,35 +1,61 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <base href="${pageContext.servletContext.contextPath }/">
+<title>PTIT GYM</title>
+<meta content="" name="description" />
+<meta content="" name="keywords" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<!-- Favicon icon -->
-<link rel="shortcut icon" type="image/x-icon"
-	href="./resources/imgs/theme/logo.svg" />
-<title>Winx Admin</title>
-<!-- This page css -->
-<!-- Custom CSS -->
-<link href=" <c:url value='/resources/css/vendors/bootstrap.min.css'/>"
-	rel="stylesheet" />
-<link rel="stylesheet"
-	href="<c:url value='/resources/admin/dist/css/style.min.css'/>" />
-<link rel="stylesheet"
-	href="<c:url value='/resources/admin/dist/css/v-style.css'/>" />
-<%-- <link
-	href="<c:url value='/resources/admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css'/>"
-	rel="stylesheet"> --%>
-</head>
-<link href=" <c:url value='/resources/admin/dist/css/fstdropdown.css'/>"
+<!-- Favicons -->
+<link href="assets/img/favicon.png" rel="icon" />
+<link rel="icon"
+	href="<c:url value='/resources/admin/img/favicon.png'/>" />
+<link rel="apple-touch-icon"
+	href="<c:url value='/resources/admin/img/apple-touch-icon.png'/>" />
+
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect" />
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet" />
 
+<!-- Vendor CSS Files -->
+
 <link rel="stylesheet"
-	href="<c:url value='/resources/fontawesome-pro-6.1.1-web/css/all.min.css'/>" />
+	href="<c:url value='/resources/admin/vendor/bootstrap/css/bootstrap.min.css'/>" />
 <link rel="stylesheet"
-	href="<c:url value='/resources/admin/dist/css/n-style.css'/>" />
+	href="<c:url value='/resources/admin/vendor/bootstrap-icons/bootstrap-icons.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/vendor/boxicons/css/boxicons.min.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/vendor/quill/quill.snow.css'/>" />
+
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/vendor/quill/quill.bubble.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/vendor/remixicon/remixicon.css'/>" />
+
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/vendor/simple-datatables/style.css'/>" />
+
+<!-- Template Main CSS File -->
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/css/style.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/css/n-style.css'/>" />
+
+<link rel="stylesheet"
+	href="<c:url value='/resources/admin/font/css/all.min.css'/>" />
+
+
+<!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
 
 
 
