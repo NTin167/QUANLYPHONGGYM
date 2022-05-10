@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("admin/account")
+@RequestMapping("admin/package")
 @Transactional
-public class AccountController {
+public class PackageController {
 	@Autowired
 	SessionFactory factory;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index(ModelMap model) {
-		return "admin/account";
+		return "admin/package";
+	}
+
+	@RequestMapping(value = "type", method = RequestMethod.GET)
+	public String packageType() {
+		return "admin/package-type";
 	}
 }

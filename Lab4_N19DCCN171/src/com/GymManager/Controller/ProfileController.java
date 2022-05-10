@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("admin/account")
+@RequestMapping("admin/profile")
 @Transactional
-public class AccountController {
+public class ProfileController {
 	@Autowired
 	SessionFactory factory;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap model) {
-		return "admin/account";
+		return "admin/profile";
 	}
 }

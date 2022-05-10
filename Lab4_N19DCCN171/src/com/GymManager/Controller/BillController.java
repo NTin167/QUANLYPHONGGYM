@@ -8,16 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 @Controller
-@RequestMapping("admin/account")
+@RequestMapping("admin/bill")
 @Transactional
-public class AccountController {
+public class BillController {
 	@Autowired
 	SessionFactory factory;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap model) {
-		return "admin/account";
+		return "admin/bill";
 	}
 }
