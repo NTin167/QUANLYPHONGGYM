@@ -1,196 +1,250 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<head>
 <%@include file="./head.jsp"%>
+</head>
 <body>
+	<!-- ======= Header ======= -->
+	<%@include file="./header.jsp"%>
+	<!-- End Header -->
 
-	<div id="main-wrapper" data-theme="light" data-layout="vertical"
-		data-navbarbg="skin6" data-sidebartype="full"
-		data-sidebar-position="fixed" data-header-position="fixed"
-		data-boxed-layout="full">
-		<%@include file="./sidebar.jsp"%>
-		<div class="page-wrapper pt-0">
-			<div class="page-breadcrumb">
-				<div class="row">
-					<div class="col-12 align-self-center">
-						<h4
-							class="page-title text-truncate text-dark font-weight-medium mb-1">Trang Chủ</h4>
+	<!-- ======= Sidebar ======= -->
+	<%@include file="./sidebar.jsp"%>
+	<!-- End Sidebar-->
+	<main id="main" class="main">
+		<div class="pagetitle">
+			<h1>Trang chủ</h1>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section dashboard">
+			<div class="row">
+				<!-- Left side columns -->
+				<div class="col-lg-12">
+					<div class="row">
+						<!-- Sales Card -->
+						<div class="col-xxl-4 col-md-6">
+							<div class="card info-card sales-card">
+								<div class="filter">
+									<a class="icon" href="#" data-bs-toggle="dropdown"><i
+										class="bi bi-three-dots"></i></a>
+									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<li class="dropdown-header text-start">
+											<h6>Filter</h6>
+										</li>
+
+										<li><a class="dropdown-item" href="#">Today</a></li>
+										<li><a class="dropdown-item" href="#">This Month</a></li>
+										<li><a class="dropdown-item" href="#">This Year</a></li>
+									</ul>
+								</div>
+
+								<div class="card-body">
+									<h5 class="card-title">
+										Sales <span>| Today</span>
+									</h5>
+
+									<div class="d-flex align-items-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-cart"></i>
+										</div>
+										<div class="ps-3">
+											<h6>145</h6>
+											<span class="text-success small pt-1 fw-bold">12%</span> <span
+												class="text-muted small pt-2 ps-1">increase</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Sales Card -->
+
+						<!-- Revenue Card -->
+						<div class="col-xxl-4 col-md-6">
+							<div class="card info-card revenue-card">
+								<div class="filter">
+									<a class="icon" href="#" data-bs-toggle="dropdown"><i
+										class="bi bi-three-dots"></i></a>
+									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<li class="dropdown-header text-start">
+											<h6>Filter</h6>
+										</li>
+
+										<li><a class="dropdown-item" href="#">Today</a></li>
+										<li><a class="dropdown-item" href="#">This Month</a></li>
+										<li><a class="dropdown-item" href="#">This Year</a></li>
+									</ul>
+								</div>
+
+								<div class="card-body">
+									<h5 class="card-title">
+										Revenue <span>| This Month</span>
+									</h5>
+
+									<div class="d-flex align-items-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-currency-dollar"></i>
+										</div>
+										<div class="ps-3">
+											<h6>$3,264</h6>
+											<span class="text-success small pt-1 fw-bold">8%</span> <span
+												class="text-muted small pt-2 ps-1">increase</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Revenue Card -->
+
+						<!-- Customers Card -->
+						<div class="col-xxl-4 col-xl-12">
+							<div class="card info-card customers-card">
+								<div class="filter">
+									<a class="icon" href="#" data-bs-toggle="dropdown"><i
+										class="bi bi-three-dots"></i></a>
+									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<li class="dropdown-header text-start">
+											<h6>Filter</h6>
+										</li>
+
+										<li><a class="dropdown-item" href="#">Today</a></li>
+										<li><a class="dropdown-item" href="#">This Month</a></li>
+										<li><a class="dropdown-item" href="#">This Year</a></li>
+									</ul>
+								</div>
+
+								<div class="card-body">
+									<h5 class="card-title">
+										Customers <span>| This Year</span>
+									</h5>
+
+									<div class="d-flex align-items-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-people"></i>
+										</div>
+										<div class="ps-3">
+											<h6>1244</h6>
+											<span class="text-danger small pt-1 fw-bold">12%</span> <span
+												class="text-muted small pt-2 ps-1">decrease</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Customers Card -->
+
+						<!-- Reports -->
+						<div class="col-12">
+							<div class="card">
+								<div class="filter">
+									<a class="icon" href="#" data-bs-toggle="dropdown"><i
+										class="bi bi-three-dots"></i></a>
+									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<li class="dropdown-header text-start">
+											<h6>Filter</h6>
+										</li>
+
+										<li><a class="dropdown-item" href="#">Today</a></li>
+										<li><a class="dropdown-item" href="#">This Month</a></li>
+										<li><a class="dropdown-item" href="#">This Year</a></li>
+									</ul>
+								</div>
+
+								<div class="card-body">
+									<h5 class="card-title">
+										Reports <span>/Today</span>
+									</h5>
+
+									<!-- Line Chart -->
+									<div id="reportsChart"></div>
+
+									<script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(
+                          document.querySelector("#reportsChart"),
+                          {
+                            series: [
+                              {
+                                name: "Sales",
+                                data: [31, 40, 28, 51, 42, 82, 56],
+                              },
+                              {
+                                name: "Revenue",
+                                data: [11, 32, 45, 32, 34, 52, 41],
+                              },
+                              {
+                                name: "Customers",
+                                data: [15, 11, 32, 18, 9, 24, 11],
+                              },
+                            ],
+                            chart: {
+                              height: 350,
+                              type: "area",
+                              toolbar: {
+                                show: false,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          },
+                        ).render();
+                      });
+                    </script>
+									<!-- End Line Chart -->
+								</div>
+							</div>
+						</div>
+						<!-- End Reports -->
 					</div>
 				</div>
+				<!-- End Left side columns -->
+
+				<!-- Right side columns -->
+				<!-- End Right side columns -->
 			</div>
-
-			<div class="container-fluid">
-
-				 <div class="card-group">
-                    <div class="card border-right tc-control">
-                        <div class="card-body">
-                            <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">236</h2>
-                                        <span
-                                            class="badge bg-cyan font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
-                                    </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
-                                        Khách Hàng
-                                    </h6>
-                                </div>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7"><i data-feather="user-plus"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="admin-employee.html">
-                            <div class="dashbroad-more">
-                                More
-                                <i class="fas fa-arrow-circle-right">
-                                </i>
-                            </div>
-                        </a>
-
-                    </div>
-                    <div class="card border-right tc-control">
-                        <div class="card-body">
-                            <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-                                        18,306</h2>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
-                                        Sản Phẩm
-                                    </h6>
-                                </div>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7"><i class=" icon-social-dropbox"
-                                            style="font-size: 21px"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="admin-product.html">
-                            <div class="dashbroad-more">
-                                More
-                                <i class="fas fa-arrow-circle-right">
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card border-right tc-control">
-                        <div class="card-body">
-                            <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
-                                        <span
-                                            class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
-                                    </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Đơn Đặt</h6>
-                                </div>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="admin-order.html">
-                            <div class="dashbroad-more">
-                                More
-                                <i class="fas fa-arrow-circle-right">
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-                <!-- *************************************************************** -->
-                <div class="card-group">
-                    <div class="card border-right tc-control">
-                        <div class="card-body">
-                            <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">236</h2>
-                                        <span
-                                            class="badge bg-cyan font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
-                                    </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
-                                        Nhãn Hàng
-                                    </h6>
-                                </div>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7"><i class=" fas fa-handshake"
-                                            style="font-size: 21px;"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="admin-brand.html">
-                            <div class="dashbroad-more">
-                                More
-                                <i class="fas fa-arrow-circle-right">
-                                </i>
-                            </div>
-                        </a>
-
-                    </div>
-                    <div class="card border-right tc-control">
-                        <div class="card-body">
-                            <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-                                        18,306</h2>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">
-                                        Khuyến Mãi
-                                    </h6>
-                                </div>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7"><i class="icon-tag" style="font-size:21px"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="admin-sale.html">
-                            <div class="dashbroad-more">
-                                More
-                                <i class="fas fa-arrow-circle-right">
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card border-right tc-control">
-                        <div class="card-body">
-                            <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
-                                        <span
-                                            class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
-                                    </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Tin Mới</h6>
-                                </div>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7 text-muted"><i class=" icon-book-open"
-                                            style="font-size: 21px"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="admin-news.html">
-                            <div class="dashbroad-more">
-                                More
-                                <i class="fas fa-arrow-circle-right">
-                                </i>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-				<!-- *************************************************************** -->
-				<!-- End First Cards -->
-
-			</div>
-
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Page wrapper  -->
-		<!-- ============================================================== -->
-	</div>
+		</section>
+	</main>
+	<!-- End #main -->
 	<%@include file="./script.jsp"%>
 </body>
 </html>

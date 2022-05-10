@@ -7,17 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("admin/account")
+@RequestMapping("admin/employee")
 @Transactional
-public class AccountController {
+public class EmployeeController {
 	@Autowired
 	SessionFactory factory;
-
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping("")
 	public String index(ModelMap model) {
-		return "admin/account";
+		return "admin/employee";
 	}
 }

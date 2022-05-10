@@ -1,6 +1,5 @@
 package com.GymManager.Controller;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +19,28 @@ public class LoginController {
 	LoginService loginService;
 	@Autowired
 	HttpSession session;
-	
+
+	@RequestMapping(value = "admin/login", method = RequestMethod.GET)
+	public String adminLogin(ModelMap model) {
+		model.addAttribute("loginRequest", new LoginRequest());
+		return "admin/login";
+	}
+
 	@RequestMapping(value = "log-in", method = RequestMethod.GET)
-	public String login(ModelMap model){
-        model.addAttribute("loginRequest", new LoginRequest());
-        return "log-in";
-    }
-  @RequestMapping(value="log-in", method = RequestMethod.POST)
-    public String login(ModelMap model, @ModelAttribute("loginRequest") LoginRequest loginRequest){
-        AccountEntity user = loginService.checkLoginAdmin(loginRequest.getUsername(), loginRequest.getPassword());
-        if (user == null) {
-            model.addAttribute("message", "Vui lòng kiểm tra tài khoản hoặc mật khẩu!");
-            return "log-in";
-        }
-    session.setAttribute("loginSession", user);
-    return "admin/index";
-  }
-  
+	public String login(ModelMap model) {
+		model.addAttribute("loginRequest", new LoginRequest());
+		return "log-in";
+	}
+
+	@RequestMapping(value = "log-in", method = RequestMethod.POST)
+	public String login(ModelMap model, @ModelAttribute("loginRequest") LoginRequest loginRequest) {
+		AccountEntity user = loginService.checkLoginAdmin(loginRequest.getUsername(), loginRequest.getPassword());
+		if (user == null) {
+			model.addAttribute("message", "Vui lòng kiểm tra tài khoản hoặc mật khẩu!");
+			return "log-in";
+		}
+		session.setAttribute("loginSession", user);
+		return "admin/index";
+	}
+
 }
- 

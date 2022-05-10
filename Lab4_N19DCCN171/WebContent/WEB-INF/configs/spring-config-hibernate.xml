@@ -22,7 +22,7 @@
 			
 			p:url="jdbc:sqlserver://localhost:1433; Database=QuanLyGym"
 			p:username="sa"
-			p:password="123453">
+			p:password="123456">
 	</bean>
 	
 	<!-- Cấu hình Hibernate -->
