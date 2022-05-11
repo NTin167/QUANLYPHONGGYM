@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
             <div class="container">
                 <div class="row">
                     <div class="col-xl-10 offset-xl-1">
-                        <h1 class="text-center">Đăng Ký</h1>
+                        <h1 class="text-center">Thông tin người dùng</h1>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
@@ -27,31 +27,30 @@ pageEncoding="UTF-8"%>
                 <div class="row">
                     <div class="col-xl-6 offset-xl-3">
                         <div class="text-box mt-5 mb-5">
-                            <p class="mb-4">Điền vảo biểu mẫu bên dưới để đăng ký. Bạn đã có tài khoản? Chỉ cần <a class="blue" href="homepage/log-in.htm">Đăng nhập</a></p>
-
                             <!-- Sign Up Form -->
                             <form>
                                 <div class="mb-4 form-floating">
-                                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                    <label for="floatingInput">Email</label>
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Your name">
+                                    <label for="floatingInput">Họ và tên</label>
                                 </div>
+
                                 <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="floatingInput2" placeholder="Your username">
-                                    <label for="floatingInput">Tên đăng nhập</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option value="false" selected>Nam</option>
+                                        <option value="true">Nữ</option>
+                                    </select>
                                 </div>
+
                                 <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                    <label for="floatingPassword">Mật khẩu</label>
+                                    <input type="tel" class="form-control" id="floatingInput2" placeholder="0123xxxxxx">
+                                    <label for="floatingInput2">Số điện thoại</label>
                                 </div>
+                                
                                 <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="floatingReinputPassword" placeholder="Password">
-                                    <label for="floatingReinputPassword">Xác nhận mật khẩu</label>
+                                    <input type="date" class="form-control" id="floatingInput3" placeholder="DD/MM/YYYY">
+                                    <label for="floatingInput3">Ngày sinh</label>
                                 </div>
-                                <div class="mb-4 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Tôi đồng ý với <a href="privacy.html">Chính sách bảo mật</a> và <a href="terms.html">Điều khoản & Điều kiện</a> của trang web</label>
-                                </div>
-                                <button type="submit" class="form-control-submit-button">Đăng ký</button>
+                                <button type="submit" class="form-control-submit-button">Hoàn tất</button>
                             </form>
                             <!-- end of sign up form -->
 
@@ -61,6 +60,7 @@ pageEncoding="UTF-8"%>
             </div> <!-- end of container -->
         </div> <!-- end of ex-basic-1 -->
         <!-- end of basic -->
+
 
         <%@include file="./footer.jsp"%>
 

@@ -23,4 +23,9 @@ public class HomeController {
 	public String signup(HttpServletRequest request, HttpSession session) {
 		return "homepage/sign-up";
 	}
+	
+	@RequestMapping("user-infor")
+	public String userinfor(HttpServletRequest request, HttpSession session) {
+		return "homepage/user-infor";
+	}
 }
