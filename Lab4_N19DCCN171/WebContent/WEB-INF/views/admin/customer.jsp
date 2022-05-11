@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +10,9 @@
 </head>
 
 <body>
+	<!-- initial customer data -->
+	<div class="initialCSId position-absolute"
+		data="${customer.customerId }"></div>
 	<!-- ======= Header ======= -->
 	<%@include file="./header.jsp"%>
 	<!-- End Header -->
@@ -66,7 +72,9 @@
 											</button>
 										</td>
 									</tr>
-									<tr>
+									<tr id="NV000001" name="nhat" gender="1" birthday="2011-04-19"
+										email="nhat@gmail.com" phone="123123121"
+										address="97 man thiên">
 										<td>NV000001</td>
 										<td>Raheem Lehner</td>
 										<td>Nam</td>
@@ -83,8 +91,8 @@
 													ký tập</span>
 											</button>
 											<button class="btn btn-outline-warning btn-light btn-sm"
-												data-bs-toggle="modal" data-bs-target="#create"
-												title="Chỉnh sửa">
+												data-bs-toggle="modal" data-bs-target="#modal-create"
+												title="Chỉnh sửa" onclick="handleEdit(this)">
 												<i class="fa-solid fa-pen-to-square"></i>
 											</button>
 											<button class="btn btn-outline-info btn-light btn-sm"
@@ -106,7 +114,7 @@
 
 		<!-- modal  -->
 		<!-- Form thêm khách hàng -->
-		<div class="modal fade" id="create" tabindex="-1">
+		<div class="modal fade" id="modal-create" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header bg-primary text-white px-3 py-2">
@@ -115,52 +123,52 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form class="row g-3">
+						<form:form class="row g-3" modelAttribute="customer">
 							<div class="col-md-12">
-								<label for="inputName" class="form-label">Mã: <span
-									class="employeeId text-danger">KH000002</span>
+								<label for="input-id" class="form-label ">Mã: <span
+									class="employeeId text-danger customerId"></span>
 								</label>
 							</div>
 
 							<div class="col-md-12">
-								<label for="inputName" class="form-label">Họ và tên</label> <input
-									type="text" class="form-control" id="inputName" />
+								<label for="input-name" class="form-label">Họ và tên</label> <input
+									type="text" class="form-control" id="input-name" />
 							</div>
 							<fieldset class="col-md-12">
 								<legend class="col-form-label col-sm-2 pt-0"> Giới tính
 								</legend>
 								<div class="col-sm-12 d-flex gap-4">
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="gender"
-											id="female" value="0" checked /> <label
+										<input class="form-check-input" type="radio"
+											name="input-gender" id="female" value="0" checked /> <label
 											class="form-check-label" for="female"> Nữ </label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="gender"
-											id="male" value="1" /> <label class="form-check-label"
-											for="male"> Nam </label>
+										<input class="form-check-input" type="radio"
+											name="input-gender" id="male" value="1" /> <label
+											class="form-check-label" for="male"> Nam </label>
 									</div>
 								</div>
 							</fieldset>
 
 							<div class="col-md-6">
-								<label for="inputBirthday" class="form-label">Ngày sinh</label>
-								<input type="date" class="form-control" id="inputBirthday" />
+								<label for="input-birthday" class="form-label">Ngày sinh</label>
+								<input type="date" class="form-control" id="input-birthday" />
 							</div>
 
 							<div class="col-md-6">
-								<label for="inputPhone" class="form-label">SDT</label> <input
-									type="tel" class="form-control" id="inputPhone"
+								<label for="input-phone" class="form-label">SDT</label> <input
+									type="tel" class="form-control" id="input-phone"
 									pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
 							</div>
 							<div class="col-md-12">
-								<label for="inputEmail" class="form-label">Email</label> <input
-									type="email" class="form-control" id="inputEmail" />
+								<label for="input-email" class="form-label">Email</label> <input
+									type="email" class="form-control" id="input-email" />
 							</div>
 
 							<div class="col-12">
-								<label for="inputAddress" class="form-label">Địa chỉ</label> <input
-									type="text" class="form-control" id="inputAddress"
+								<label for="input-address" class="form-label">Địa chỉ</label> <input
+									type="text" class="form-control" id="input-address"
 									placeholder="97 Man Thiện, ..." />
 							</div>
 							<div class="col-12">
@@ -192,7 +200,7 @@
 								<button type="button" class="btn btn-secondary close-form"
 									data-bs-dismiss="modal">Đóng</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -561,8 +569,38 @@
 	<!-- End #main -->
 	<!-- common script -->
 	<%@include file="./script.jsp"%>
-	<script>
+	<script type="text/javascript">
+		let customerIdEl = $(".customerId");
+	    let inputName = $("#input-name");
+	    let inputBirthday = $("#input-birthday");
+	    let inputAddress = $("#input-address");
+	    let inputEmail = $("#input-email");
+	    let inputPhone = $("#input-phone");
+	    let inputGender = $("[name=input-gender]");
+	    let inputUsername = $("#input-username");
+	    let inputPassword = $("#input-password");
+		let handleEdit = function (e) {
+        let dataElement = e.closest("tr");
+        customerIdEl.text(dataElement.id);
+        inputName.val(dataElement.getAttribute("name"));
+        inputBirthday.val(dataElement.getAttribute("birthday"));
+        inputEmail.val(dataElement.getAttribute("email"));
+        inputAddress.val(dataElement.getAttribute("address"));
+        inputGender.val([dataElement.getAttribute("gender")]);
+        inputPhone.val(dataElement.getAttribute("phone"));
+      };
       $(document).ready(function () {
+          	let handleCreate = function () {
+          	customerIdEl.text($(".initialCSId").attr("data"));
+            inputName.val("");
+            inputBirthday.val("");
+            inputEmail.val("");
+            inputAddress.val("");
+            inputGender.val(["0"]);
+            inputPhone.val("");
+          };
+          let btnCreate = $(".btn-create");
+          btnCreate.click(() => handleCreate());
         $(
           "#my-data-table_filter",
         ).append(`  <div class="search-bar-table d-flex align-items-stretch">
@@ -750,10 +788,6 @@
         });
       });
     </script>
-
-
-
-
 
 </body>
 </html>

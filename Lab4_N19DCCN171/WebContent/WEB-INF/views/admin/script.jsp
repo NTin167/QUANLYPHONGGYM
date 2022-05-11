@@ -1,11 +1,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script
 	src="<c:url value='/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendor/quill/quill.min.js"></script>
 <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script> -->
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script

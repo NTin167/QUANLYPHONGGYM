@@ -4,43 +4,44 @@ import java.util.*;
 import java.util.Collection;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "KHACHHANG")
 public class CustomerEntity {
 	@Id
-	@Column(name="MaKH")
+	@Column(name = "MaKH")
 	private String customerId;
-	@Column(name="HoTen")
+	@Column(name = "HoTen")
 	private String name;
-	@Column(name="Phai")
+	@Column(name = "Phai")
 	private int gender;
-	@Column(name="DiaChi")
+	@Column(name = "DiaChi")
 	private String address;
-	
-	@Column(name="Email")
+
+	@Column(name = "Email")
 	private String email;
-	
+
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/YYYY")
-	private Date dob;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthday;
+
 	@Column(name = "SDT")
 	private String phonenumber;
-	
+
 	@Column(name = "TaiKhoan")
-	private String userName;
-	
+	private String username;
+
 //	@ManyToOne
 //	@JoinColumn (name = "TaiKhoan")
 //	private AccountEntity accounts;
 //	
 //	@OneToMany(mappedBy = "customers", fetch = FetchType.EAGER)
 //	private Collection<RegisterEntity> registerEntities;
-	
 
 	public String getCustomerId() {
 		return customerId;
@@ -82,12 +83,12 @@ public class CustomerEntity {
 		this.email = email;
 	}
 
-	public Date getDob() {
-		return dob;
+	public Date getbirthday() {
+		return birthday;
 	}
 
-	public void setDob(Date dob) {
-		this.dob = dob;
+	public void setbirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public String getPhonenumber() {
@@ -98,25 +99,25 @@ public class CustomerEntity {
 		this.phonenumber = phonenumber;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getusername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setusername(String username) {
+		this.username = username;
 	}
 
-	public CustomerEntity(String customerId, String name, int gender, String address, String email, Date dob,
-			String phonenumber, String userName, AccountEntity accounts, Collection<RegisterEntity> registerEntities) {
+	public CustomerEntity(String customerId, String name, int gender, String address, String email, Date birthday,
+			String phonenumber, String username, AccountEntity accounts, Collection<RegisterEntity> registerEntities) {
 		super();
 		this.customerId = customerId;
 		this.name = name;
 		this.gender = gender;
 		this.address = address;
 		this.email = email;
-		this.dob = dob;
+		this.birthday = birthday;
 		this.phonenumber = phonenumber;
-		this.userName = userName;
+		this.username = username;
 //		this.accounts = accounts;
 //		this.registerEntities = registerEntities;
 	}
@@ -125,8 +126,4 @@ public class CustomerEntity {
 		super();
 	}
 
-
-	
-	
-	
 }
