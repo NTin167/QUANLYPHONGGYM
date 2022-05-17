@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -13,24 +15,40 @@ public class RegisterEntity {
 	@Id
 	@Column(name = "MaTTDK")
 	private String registerId;
-	
+	@ManyToOne
+	@JoinColumn(name = "MaKH")
+	private CustomerEntity customer;
+
 	@Column(name = "NgayDK")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/YYYY")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date registerDate;
-	
-	@Column(name = "MaKH")
-	private String customerId;
-	
+
 	@Column(name = "TrangThai")
 	private int status;
+	@ManyToOne
+	@JoinColumn(name = "NguoiTao")
+	private AccountEntity account;
 	
-	@Column(name = "NguoiTao")
-	private String userName;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "MaKH")
-//	private CustomerEntity customers;
+	@OneToMany(mappedBy = "registerEntity")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<RegisterDetailEntity> registerDetailList;
+
+	public AccountEntity getAccount() {
+		return account;
+	}
+
+	public void setAccount(AccountEntity account) {
+		this.account = account;
+	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
 
 	public String getRegisterId() {
 		return registerId;
@@ -48,14 +66,6 @@ public class RegisterEntity {
 		this.registerDate = registerDate;
 	}
 
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
 	public int getStatus() {
 		return status;
 	}
@@ -63,30 +73,30 @@ public class RegisterEntity {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	
 
-	public String getUserName() {
-		return userName;
+	public Collection<RegisterDetailEntity> getRegisterDetailList() {
+		return registerDetailList;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setRegisterDetailList(Collection<RegisterDetailEntity> registerDetailList) {
+		this.registerDetailList = registerDetailList;
 	}
 
 	public RegisterEntity(String registerId, Date registerDate, String customerId, int status, String userName,
-			CustomerEntity customers) {
+			CustomerEntity customer) {
 		super();
 		this.registerId = registerId;
 		this.registerDate = registerDate;
-		this.customerId = customerId;
+
 		this.status = status;
-		this.userName = userName;
-//		this.customers = customers;
+
+		this.customer = customer;
 	}
 
 	public RegisterEntity() {
 		super();
 	}
 
-
-	
 }

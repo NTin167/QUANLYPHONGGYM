@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -11,10 +13,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class PTEntity {	
 	@Id
 	@Column(name = "MaPT")
-	private String ptID;
+	private String	ptID;
 	
 	@Column(name = "HoTen")
-	private String ptName;
+	private String name;
 	
 	@Column(name = "Phai")
 	private int gender;
@@ -30,7 +32,7 @@ public class PTEntity {
 	
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/YYYY")
+	@DateTimeFormat(pattern = "YYYY-MM-dd")
 	private Date birthday;
 	
 	@Column(name = "SDT")
@@ -38,6 +40,12 @@ public class PTEntity {
 	
 	@Column(name = "TrangThai")
 	private int status;
+	
+	@OneToMany(mappedBy = "PT")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<ClassEntity> classList;
+
+	
 
 	public String getPtID() {
 		return ptID;
@@ -47,12 +55,12 @@ public class PTEntity {
 		this.ptID = ptID;
 	}
 
-	public String getPtName() {
-		return ptName;
+	public String getName() {
+		return name;
 	}
 
-	public void setPtName(String ptName) {
-		this.ptName = ptName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getGender() {
@@ -111,23 +119,15 @@ public class PTEntity {
 		this.status = status;
 	}
 
-	public PTEntity(String ptID, String ptName, int gender, String identityCard, String address, String email,
-			Date birthday, String phoneNumber, int status) {
-		super();
-		this.ptID = ptID;
-		this.ptName = ptName;
-		this.gender = gender;
-		this.identityCard = identityCard;
-		this.address = address;
-		this.email = email;
-		this.birthday = birthday;
-		this.phoneNumber = phoneNumber;
-		this.status = status;
+	public Collection<ClassEntity> getClassList() {
+		return classList;
 	}
 
-	public PTEntity() {
-		super();
+	public void setClassList(Collection<ClassEntity> classList) {
+		this.classList = classList;
 	}
+
+	
 
 
 	

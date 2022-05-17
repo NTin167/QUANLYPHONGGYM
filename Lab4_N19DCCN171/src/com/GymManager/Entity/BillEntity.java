@@ -6,42 +6,31 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
-@Table(name="HOADON")
-
+@Table(name = "HOADON")
 
 /*
- * MaHD chả(8)
- * NgayTao date
- * MaKM char
- * MaTK	varchar
- * TongTien money
- * MaTTDK char(8)
+ * MaHD chả(8) NgayTao date MaKM char MaTK varchar TongTien money MaTTDK char(8)
  */
 public class BillEntity {
 	@Id
 	@Column(name = "MaHD")
 	private String billId;
-	
+
 	@Column(name = "NgayTao")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/YYYY")
+	@DateTimeFormat(pattern = "yyy-MM-dd")
 	private Date date;
-	
-//	@ManyToOne
-//	@JoinColumn(name= "MaKM")
-	@Column(name = "MaKM")
-	private String promotionId;
-	
-	@Column(name = "MaTK")
-	private String  userId;
-	
 	@Column(name = "TongTien")
 	private float money;
-	
-	@Column(name = "MaTTDK")
-	private String registerId;
+
+	@ManyToOne
+	@JoinColumn(name = "MaNV")
+	private StaffEntity staff;
+
+	@OneToOne
+	@JoinColumn(name = "MaTTDK")
+	private RegisterEntity register;
 
 	public String getBillId() {
 		return billId;
@@ -59,22 +48,6 @@ public class BillEntity {
 		this.date = date;
 	}
 
-	public String getPromotionId() {
-		return promotionId;
-	}
-
-	public void setPromotionId(String promotionId) {
-		this.promotionId = promotionId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	public float getMoney() {
 		return money;
 	}
@@ -83,15 +56,20 @@ public class BillEntity {
 		this.money = money;
 	}
 
-	public String getRegisterId() {
-		return registerId;
+	public StaffEntity getStaff() {
+		return staff;
 	}
 
-	public void setRegisterId(String registerId) {
-		this.registerId = registerId;
+	public void setStaff(StaffEntity staff) {
+		this.staff = staff;
 	}
-	
-	
-	
-	
+
+	public RegisterEntity getRegister() {
+		return register;
+	}
+
+	public void setRegister(RegisterEntity register) {
+		this.register = register;
+	}
+
 }

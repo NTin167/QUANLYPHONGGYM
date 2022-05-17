@@ -1,8 +1,11 @@
 package com.GymManager.Entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,9 @@ public class TrainingPackTypeEntity {
 	
 	@Column(name = "MoTa")
 	private String describe;
+	
+	@OneToMany(mappedBy = "trainingPack")
+	private Collection<TrainingPackEntity> trainingPackList;
 
 	public String getPackID() {
 		return packID;
@@ -24,6 +30,14 @@ public class TrainingPackTypeEntity {
 
 	public void setPackID(String packID) {
 		this.packID = packID;
+	}
+
+	public Collection<TrainingPackEntity> getTrainingPackList() {
+		return trainingPackList;
+	}
+
+	public void setTrainingPackList(Collection<TrainingPackEntity> trainingPackList) {
+		this.trainingPackList = trainingPackList;
 	}
 
 	public String getPackName() {

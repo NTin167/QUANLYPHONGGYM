@@ -10,6 +10,12 @@
 </head>
 
 <body>
+	<!--  flag -->
+	<div class="modal-flag" idModal="${idModal}"></div>
+	<div class="page-flag" data="sale"></div>
+	<div class="alert-flag" aType='${message.type}'
+		aMessage="${message.message }"></div>
+	<!-- end flag  -->
 	<!-- initial customer data -->
 	<div class="initialCSId position-absolute"
 		data="${customer.customerId }"></div>
@@ -44,34 +50,37 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>NV000001</td>
-										<td>Raheem Lehner</td>
-										<td>Nam</td>
-										<td>2011-04-19</td>
+									<c:forEach var="c" items="${cList}">
+										<tr>
+											<td>${c.customerId}</td>
+											<td>${c.name}</td>
+											<td>${c.gender == 0? 'Nữ':'Nam'}</td>
+											<td>2011-04-19</td>
 
-										<td class="account-state"><span
-											class="badge rounded-pill bg-success">Đang tập</span></td>
+											<td class="account-state"><span
+												class="badge rounded-pill bg-success">Đang tập</span></td>
 
-										<td class="text-center">
-											<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-												data-bs-target="#contract-registration-modal"
-												title="Đăng ký gói tập">
-												<i class="fa-regular fa-file-signature"></i> <span>Đăng
-													ký tập</span>
-											</button>
-											<button class="btn btn-outline-warning btn-light btn-sm"
-												data-bs-toggle="modal" data-bs-target="#create"
-												title="Chỉnh sửa">
-												<i class="fa-solid fa-pen-to-square"></i>
-											</button>
-											<button class="btn btn-outline-info btn-light btn-sm"
-												title="Chi tiết" data-bs-toggle="modal"
-												data-bs-target="#detail" data-bs-placement="top">
-												<i class="fa-solid fa-circle-exclamation"></i>
-											</button>
-										</td>
-									</tr>
+											<td class="text-center">
+												<button class="btn btn-primary btn-sm"
+													data-bs-toggle="modal"
+													data-bs-target="#contract-registration-modal"
+													title="Đăng ký gói tập">
+													<i class="fa-regular fa-file-signature"></i> <span>Đăng
+														ký tập</span>
+												</button> <a href="admin/customer/update/${c.customerId}.htm"><button
+														class="btn btn-outline-warning btn-light btn-sm"
+														title="Chỉnh sửa">
+														<i class="fa-solid fa-pen-to-square"></i>
+													</button> </a>
+												<button class="btn btn-outline-info btn-light btn-sm"
+													title="Chi tiết" data-bs-toggle="modal"
+													data-bs-target="#detail" data-bs-placement="top">
+													<i class="fa-solid fa-circle-exclamation"></i>
+												</button>
+											</td>
+										</tr>
+									</c:forEach>
+
 									<tr id="NV000001" name="nhat" gender="1" birthday="2011-04-19"
 										email="nhat@gmail.com" phone="123123121"
 										address="97 man thiên">
@@ -123,53 +132,65 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form:form class="row g-3" modelAttribute="customer">
+						<form:form action="admin/customer.htm" method="post"
+							class="row g-3" modelAttribute="customer">
 							<div class="col-md-12">
 								<label for="input-id" class="form-label ">Mã: <span
-									class="employeeId text-danger customerId"></span>
+									class="employeeId text-danger customerId"></span> <form:input
+										path="customerId" type="text" class="form-control"
+										id="input-id" /> <span class="text-danger"><form:errors
+											path="customerId"></form:errors></span>
 								</label>
 							</div>
 
 							<div class="col-md-12">
-								<label for="input-name" class="form-label">Họ và tên</label> <input
-									type="text" class="form-control" id="input-name" />
+								<label for="input-name" class="form-label">Họ và tên</label>
+								<form:input path="name" type="text" class="form-control"
+									id="input-name" />
+								<span class="text-danger"><form:errors path="name"></form:errors></span>
 							</div>
 							<fieldset class="col-md-12">
 								<legend class="col-form-label col-sm-2 pt-0"> Giới tính
 								</legend>
 								<div class="col-sm-12 d-flex gap-4">
 									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="input-gender" id="female" value="0" checked /> <label
-											class="form-check-label" for="female"> Nữ </label>
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="female" value="0" />
+										<label class="form-check-label" for="female"> Nữ </label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="input-gender" id="male" value="1" /> <label
-											class="form-check-label" for="male"> Nam </label>
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="male" value="1" />
+										<label class="form-check-label" for="male"> Nam </label>
 									</div>
 								</div>
 							</fieldset>
 
 							<div class="col-md-6">
 								<label for="input-birthday" class="form-label">Ngày sinh</label>
-								<input type="date" class="form-control" id="input-birthday" />
+								<form:input path="birthday" type="date" class="form-control"
+									id="input-birthday" />
+								<span class="text-danger"><form:errors path="birthday"></form:errors></span>
 							</div>
 
 							<div class="col-md-6">
-								<label for="input-phone" class="form-label">SDT</label> <input
-									type="tel" class="form-control" id="input-phone"
-									pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+								<label for="input-phone" class="form-label">SDT</label>
+								<form:input path="phone" type="tel" class="form-control"
+									id="input-phone" />
+								<span class="text-danger"><form:errors path="phone"></form:errors></span>
 							</div>
 							<div class="col-md-12">
-								<label for="input-email" class="form-label">Email</label> <input
-									type="email" class="form-control" id="input-email" />
+								<label for="input-email" class="form-label">Email</label>
+								<form:input path="email" type="text" class="form-control"
+									id="input-email" />
+								<span class="text-danger"><form:errors path="email"></form:errors></span>
 							</div>
 
 							<div class="col-12">
-								<label for="input-address" class="form-label">Địa chỉ</label> <input
-									type="text" class="form-control" id="input-address"
-									placeholder="97 Man Thiện, ..." />
+								<label for="input-address" class="form-label">Địa chỉ</label>
+								<form:input path="address" type="text" class="form-control"
+									id="input-address" placeholder="97 Man Thiện, ..." />
+								<span class="text-danger"><form:errors path="address"></form:errors></span>
 							</div>
 							<div class="col-12">
 								<button type="button"
@@ -195,8 +216,8 @@
 								</div>
 							</div>
 							<div class="text-end mt-3">
-								<button type="submit" class="btn btn-primary">Xác nhận
-								</button>
+								<button type="submit" name="btnCreate" class="btn btn-primary">Xác
+									nhận</button>
 								<button type="button" class="btn btn-secondary close-form"
 									data-bs-dismiss="modal">Đóng</button>
 							</div>
@@ -205,6 +226,114 @@
 				</div>
 			</div>
 		</div>
+
+
+		<!-- Form chỉnh sủa thông tin khách hàng  -->
+		<!-- Form thêm khách hàng -->
+		<div class="modal fade" id="modal-update" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header bg-primary text-white px-3 py-2">
+						<h5 class="modal-title">Chỉnh sửa thông tin khách hàng</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form:form
+							action="admin/customer/update/${customerUpdate.customerId}.htm"
+							method="post" class="row g-3" modelAttribute="customerUpdate">
+							<div class="col-md-12">
+								<label for="input-id" class="form-label ">Mã: <span
+									class="employeeId text-danger customerId"></span> <form:input
+										path="customerId" readonly="true" type="text" class="form-control"
+										id="input-id" /> <span class="text-danger"></span>
+								</label>
+							</div>
+
+							<div class="col-md-12">
+								<label for="input-name" class="form-label">Họ và tên</label>
+								<form:input path="name" type="text" class="form-control"
+									id="input-name" />
+								<span class="text-danger"><form:errors path="name"></form:errors></span>
+							</div>
+							<fieldset class="col-md-12">
+								<legend class="col-form-label col-sm-2 pt-0"> Giới tính
+								</legend>
+								<div class="col-sm-12 d-flex gap-4">
+									<div class="form-check">
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="female" value="0" />
+										<label class="form-check-label" for="female"> Nữ </label>
+									</div>
+									<div class="form-check">
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="male" value="1" />
+										<label class="form-check-label" for="male"> Nam </label>
+									</div>
+								</div>
+							</fieldset>
+
+							<div class="col-md-6">
+								<label for="input-birthday" class="form-label">Ngày sinh</label>
+								<form:input path="birthday" type="date" class="form-control"
+									id="input-birthday" />
+								<span class="text-danger"><form:errors path="birthday"></form:errors></span>
+							</div>
+
+							<div class="col-md-6">
+								<label for="input-phone" class="form-label">SDT</label>
+								<form:input path="phone" type="tel" class="form-control"
+									id="input-phone" />
+								<span class="text-danger"><form:errors path="phone"></form:errors></span>
+							</div>
+							<div class="col-md-12">
+								<label for="input-email" class="form-label">Email</label>
+								<form:input path="email" type="text" class="form-control"
+									id="input-email" />
+								<span class="text-danger"><form:errors path="email"></form:errors></span>
+							</div>
+
+							<div class="col-12">
+								<label for="input-address" class="form-label">Địa chỉ</label>
+								<form:input path="address" type="text" class="form-control"
+									id="input-address" placeholder="97 Man Thiện, ..." />
+								<span class="text-danger"><form:errors path="address"></form:errors></span>
+							</div>
+							<div class="col-12">
+								<button type="button"
+									class="btn btn-outline-primary btn-create-account col-12"
+									data-bs-toggle="collapse" data-bs-target="#form-create-account"
+									onClick="toggleBtnState(this, 'btn-outline-danger')">
+									<i class="bi bi-plus-circle"></i> <span class="">Tạo tài
+										khoản mới</span>
+								</button>
+							</div>
+							<div class="collapse col-12" id="form-create-account">
+								<div class="row">
+									<div class="col-6" data-link="account" data-n="2">
+										<label for="input-username" class="form-label">Tên tài
+											khoản</label> <input type="text" class="form-control"
+											id="input-username" />
+									</div>
+									<div class="col-6">
+										<label for="input-password" class="form-label">Mật
+											khẩu</label> <input type="password" class="form-control"
+											id="input-password" />
+									</div>
+								</div>
+							</div>
+							<div class="text-end mt-3">
+								<button type="submit" name="btnUpdate" class="btn btn-primary">Xác
+									nhận</button>
+								<button type="button" class="btn btn-secondary close-form"
+									data-bs-dismiss="modal">Đóng</button>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Form đăng ký tập -->
 		<div class="modal fade" id="contract-registration-modal" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
@@ -570,37 +699,13 @@
 	<!-- common script -->
 	<%@include file="./script.jsp"%>
 	<script type="text/javascript">
-		let customerIdEl = $(".customerId");
-	    let inputName = $("#input-name");
-	    let inputBirthday = $("#input-birthday");
-	    let inputAddress = $("#input-address");
-	    let inputEmail = $("#input-email");
-	    let inputPhone = $("#input-phone");
-	    let inputGender = $("[name=input-gender]");
-	    let inputUsername = $("#input-username");
-	    let inputPassword = $("#input-password");
-		let handleEdit = function (e) {
-        let dataElement = e.closest("tr");
-        customerIdEl.text(dataElement.id);
-        inputName.val(dataElement.getAttribute("name"));
-        inputBirthday.val(dataElement.getAttribute("birthday"));
-        inputEmail.val(dataElement.getAttribute("email"));
-        inputAddress.val(dataElement.getAttribute("address"));
-        inputGender.val([dataElement.getAttribute("gender")]);
-        inputPhone.val(dataElement.getAttribute("phone"));
-      };
+	
       $(document).ready(function () {
-          	let handleCreate = function () {
-          	customerIdEl.text($(".initialCSId").attr("data"));
-            inputName.val("");
-            inputBirthday.val("");
-            inputEmail.val("");
-            inputAddress.val("");
-            inputGender.val(["0"]);
-            inputPhone.val("");
-          };
-          let btnCreate = $(".btn-create");
-          btnCreate.click(() => handleCreate());
+    	  let id = $(".modal-flag").attr("idModal")
+    	  if(id) {
+    	  $("#"+id).modal("show");
+    	  }
+    	
         $(
           "#my-data-table_filter",
         ).append(`  <div class="search-bar-table d-flex align-items-stretch">
@@ -613,20 +718,20 @@
                           <div id="filter-block" class="card position-absolute end-100 top-0 collapse" style="z-index: 100; min-width: 22rem;">
                               <div class="card-header py-2 text-secondary bg-info text-black fs-6">Bộ lọc</div>
                               <div class="card-body">
-                                  <form class="row g-3 mt-1" id="form-filter">
+                                  <form action="admin/customer.htm" class="row g-3 mt-1" id="form-filter">
                                       <div class="col-12">
                                           <label for="input-birthday" class="form-label">Ngày sinh</label>
 
                                           <div class="col-12 d-flex gap-1 justify-content-around align-items-stretch">
                                               <div class="input-group">
-                                                  <input id="input-birthday" type="date" class="form-control" aria-label="input-birthday" aria-describedby="basic-addon1" />
+                                                  <input id="input-birthday" type="date" name="birthdayLeft" class="form-control" aria-label="input-birthday" aria-describedby="basic-addon1" />
                                               </div>
                                               <button type="button" class="btn btn-primary btn-sm btn-range-filter" data-bs-toggle="collapse" data-bs-target="#input-birthday-right">
                                                   Đến
                                               </button>
 
                                               <div class="input-group collapse" id="input-birthday-right">
-                                                  <input type="date" class="form-control" aria-label="input-birthday" aria-describedby="basic-addon1" />
+                                                  <input type="date" name="birthdayRight" class="form-control" aria-label="input-birthday" aria-describedby="basic-addon1" />
                                               </div>
                                           </div>
                                       </div>
@@ -680,7 +785,7 @@
                                   </form>
                               </div>
                               <div class="card-footer py-2 text-end">
-                                  <button type="submit" form="form-filter" class="btn btn-primary">
+                                  <button type="submit" name="btnFilter" form="form-filter" class="btn btn-primary">
                                       Lọc
                                   </button>
                                   <button type="reset" class="btn btn-secondary">
