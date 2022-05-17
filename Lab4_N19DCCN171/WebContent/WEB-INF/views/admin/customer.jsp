@@ -60,14 +60,16 @@
 											<td class="account-state"><span
 												class="badge rounded-pill bg-success">Đang tập</span></td>
 
-											<td class="text-center">
-												<button class="btn btn-primary btn-sm"
-													data-bs-toggle="modal"
-													data-bs-target="#contract-registration-modal"
-													title="Đăng ký gói tập">
-													<i class="fa-regular fa-file-signature"></i> <span>Đăng
-														ký tập</span>
-												</button> <a href="admin/customer/update/${c.customerId}.htm"><button
+											<td class="text-center"><a
+												href="admin/customer/register/${c.customerId}.htm">
+													<button class="btn btn-primary btn-sm"
+														data-bs-toggle="modal"
+														data-bs-target="#contract-registration-modal"
+														title="Đăng ký gói tập">
+														<i class="fa-regular fa-file-signature"></i> <span>Đăng
+															ký tập</span>
+													</button>
+											</a><a href="admin/customer/update/${c.customerId}.htm"><button
 														class="btn btn-outline-warning btn-light btn-sm"
 														title="Chỉnh sửa">
 														<i class="fa-solid fa-pen-to-square"></i>
@@ -76,8 +78,7 @@
 													title="Chi tiết" data-bs-toggle="modal"
 													data-bs-target="#detail" data-bs-placement="top">
 													<i class="fa-solid fa-circle-exclamation"></i>
-												</button>
-											</td>
+												</button></td>
 										</tr>
 									</c:forEach>
 
@@ -229,7 +230,7 @@
 
 
 		<!-- Form chỉnh sủa thông tin khách hàng  -->
-		<!-- Form thêm khách hàng -->
+
 		<div class="modal fade" id="modal-update" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
@@ -245,8 +246,9 @@
 							<div class="col-md-12">
 								<label for="input-id" class="form-label ">Mã: <span
 									class="employeeId text-danger customerId"></span> <form:input
-										path="customerId" readonly="true" type="text" class="form-control"
-										id="input-id" /> <span class="text-danger"></span>
+										path="customerId" readonly="true" type="text"
+										class="form-control" id="input-id" /> <span
+									class="text-danger"></span>
 								</label>
 							</div>
 
@@ -335,7 +337,7 @@
 		</div>
 
 		<!-- Form đăng ký tập -->
-		<div class="modal fade" id="contract-registration-modal" tabindex="-1">
+		<div class="modal fade" id="modal-register" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header bg-primary text-white px-3 py-2">
@@ -344,10 +346,12 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form class="row g-3">
+						<form:form
+							action="admin/customer/register/${register.customer.customerId}"
+							class="row g-3" modelAttribute="${register}">
 							<div class="col-md-12">
 								<label class="form-label">Mã: <span
-									class="employeeId text-danger">TTDK0002</span></label>
+									class="employeeId text-danger">${register.registerId}</span></label>
 							</div>
 							<div class="contact-registration-list">
 								<div
@@ -424,7 +428,7 @@
 								<button type="button" class="btn btn-secondary close-form"
 									data-bs-dismiss="modal">Đóng</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
