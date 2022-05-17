@@ -1,99 +1,62 @@
 package com.GymManager.Entity;
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.GymManager.CompositePK.RegisterDetailPK;
+
 @Entity
 @Table(name = "CT_TTDK")
-public class RegisterDetailEntity {
-	@Id
-	@Column(name = "MaGoi")
-	private String packId;
-	
-	@Column(name = "TenGoi")
-	private String packName;
-	
-	@Column(name = "ThoiHanGoi")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/YYYY")
-	private Date packDuration;
-	
-	@Column(name = "TrangThai")
-	private String status;
-	
-	@Column(name = "LoaiGoi")
-	private String trainingPack;
-	
-	@Column(name ="GiaTien")
-	private float money;
+public class RegisterDetailEntity implements Serializable {
+	@EmbeddedId
+	private RegisterDetailPK registerDetailId;
+	@ManyToOne
+	@MapsId("registerId")
+	@JoinColumn(name = "MaTTDK")
+	private RegisterEntity registerEntity;
+	@ManyToOne
+	@MapsId("classId")
+	@JoinColumn(name = "MaLop")
+	private ClassEntity classEntity;
 
-	public String getPackId() {
-		return packId;
+	public RegisterDetailPK getRegisterDetailId() {
+		return registerDetailId;
 	}
 
-	public void setPackId(String packId) {
-		this.packId = packId;
+	public void setRegisterDetailId(RegisterDetailPK registerDetailId) {
+		this.registerDetailId = registerDetailId;
 	}
 
-	public String getPackName() {
-		return packName;
+	public RegisterEntity getRegisterEntity() {
+		return registerEntity;
 	}
 
-	public void setPackName(String packName) {
-		this.packName = packName;
+	public void setRegisterEntity(RegisterEntity registerEntity) {
+		this.registerEntity = registerEntity;
 	}
 
-
-	public Date getPackDuration() {
-		return packDuration;
+	public ClassEntity getClassEntity() {
+		return classEntity;
 	}
 
-	public void setPackDuration(Date packDuration) {
-		this.packDuration = packDuration;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getTrainingPack() {
-		return trainingPack;
-	}
-
-	public void setTrainingPack(String trainingPack) {
-		this.trainingPack = trainingPack;
-	}
-
-	public float getMoney() {
-		return money;
-	}
-
-	public void setMoney(float money) {
-		this.money = money;
-	}
-
-	public RegisterDetailEntity(String packId, String packName, Date packDuration, String status, String trainingPack,
-			float money) {
-		super();
-		this.packId = packId;
-		this.packName = packName;
-		this.packDuration = packDuration;
-		this.status = status;
-		this.trainingPack = trainingPack;
-		this.money = money;
+	public void setClassEntity(ClassEntity classEntity) {
+		this.classEntity = classEntity;
 	}
 
 	public RegisterDetailEntity() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	public RegisterDetailEntity(RegisterEntity registerEntity, ClassEntity classEntity) {
+		super();
+		this.registerDetailId = new RegisterDetailPK(registerEntity.getRegisterId(), classEntity.getClassId());
+		this.registerEntity = registerEntity;
+		this.classEntity = classEntity;
+	}
 
-	
 }

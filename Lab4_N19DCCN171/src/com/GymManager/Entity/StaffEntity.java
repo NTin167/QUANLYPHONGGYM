@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -15,7 +17,7 @@ public class StaffEntity {
 	private String staffId;
 	
 	@Column(name = "HoTen")
-	private String staffName;
+	private String name;
 	
 	@Column(name = "Phai")
 	private int gender;
@@ -31,105 +33,80 @@ public class StaffEntity {
 	
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/YYYY")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	
 	@Column(name = "SDT")
 	private String phoneNumber;
 	
-	@Column(name = "TaiKhoan")
-	private String userName;
-
+	@OneToOne
+	@JoinColumn(name = "TaiKhoan")
+	private AccountEntity account;
+	@OneToMany(mappedBy = "staff")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<BillEntity> billList;
+	
+	
+	
 	public String getStaffId() {
 		return staffId;
 	}
-
 	public void setStaffId(String staffId) {
 		this.staffId = staffId;
 	}
-
-	public String getStaffName() {
-		return staffName;
+	public String getName() {
+		return name;
 	}
-
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
+	public void setName(String name) {
+		this.name = name;
 	}
-
 	public int getGender() {
 		return gender;
 	}
-
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-
 	public String getIdentityCard() {
 		return identityCard;
 	}
-
 	public void setIdentityCard(String identityCard) {
 		this.identityCard = identityCard;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public Date getBirthday() {
 		return birthday;
 	}
-
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
-	public String getUserName() {
-		return userName;
+	public AccountEntity getAccount() {
+		return account;
 	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAccount(AccountEntity account) {
+		this.account = account;
 	}
-
-	public StaffEntity(String staffId, String staffName, int gender, String identityCard, String address, String email,
-			Date birthday, String phoneNumber, String userName) {
-		super();
-		this.staffId = staffId;
-		this.staffName = staffName;
-		this.gender = gender;
-		this.identityCard = identityCard;
-		this.address = address;
-		this.email = email;
-		this.birthday = birthday;
-		this.phoneNumber = phoneNumber;
-		this.userName = userName;
+	public Collection<BillEntity> getBillList() {
+		return billList;
 	}
-
-	public StaffEntity() {
-		super();
+	public void setBillList(Collection<BillEntity> billList) {
+		this.billList = billList;
 	}
-
-
-	
+		
 }

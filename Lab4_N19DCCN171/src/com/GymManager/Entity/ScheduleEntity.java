@@ -6,21 +6,25 @@ import javax.persistence.*;
 @Table(name = "TKB_LOP")
 public class ScheduleEntity {
 	@Id
-	@Column(name = "MaLop")
-	private String classId;
+	@Column(name = "MaTKB")
+	private String scheduleId;
 	
-	@Column(name ="Thu")
+	@OneToOne
+	@JoinColumn(name = "MaLop")
+	private ClassEntity classEntity;
+
+	@Column(name = "Thu")
 	private int day;
-	
-	@Column (name="Buoi")
+
+	@Column(name = "Buoi")
 	private int session;
 
-	public String getClassId() {
-		return classId;
+	public ClassEntity getClassEntity() {
+		return classEntity;
 	}
 
-	public void setClassId(String classId) {
-		this.classId = classId;
+	public void setClassEntity(ClassEntity classEntity) {
+		this.classEntity = classEntity;
 	}
 
 	public int getDay() {
@@ -39,17 +43,12 @@ public class ScheduleEntity {
 		this.session = session;
 	}
 
-	public ScheduleEntity(String classId, int day, int session) {
-		super();
-		this.classId = classId;
-		this.day = day;
-		this.session = session;
+	public String getScheduleId() {
+		return scheduleId;
 	}
 
-	public ScheduleEntity() {
-		super();
+	public void setScheduleId(String scheduleId) {
+		this.scheduleId = scheduleId;
 	}
-
-
 	
 }

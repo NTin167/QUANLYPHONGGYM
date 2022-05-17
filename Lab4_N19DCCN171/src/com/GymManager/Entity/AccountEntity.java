@@ -5,87 +5,84 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "TAIKHOAN")
 public class AccountEntity {
 	@Id
-//	@Column(name = "Username")
+	@Column(name = "Username")
 	private String username;
-	
-//	@Column(name = "Password")
-	private String password;
-//	
-////	@Column(name = "TrangThai")
-//	private int status;
-//	
-////	@Column(name = "MaQuyen")
-//	private String policyId;
-//	
-//	@Column(name = "NgayTao")
-//	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern="dd/MM/YYYY")
-//	private Date dateCreate;
-	
-//	@Column(name = "NgayCapNhap")
-//	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern="dd/MM/YYYY")
-//	private Date dateUpdate;
-	
-//	@OneToMany(mappedBy = "accounts", fetch = FetchType.EAGER)
-//	private Collection<CustomerEntity> customers;
-//	
-//	@OneToOne
-//	@JoinColumn(name = "MaKH")
 
-	public String getsername() {
+	@Column(name = "Password")
+	private String password;
+
+	@Column(name = "TrangThai")
+	private int status;
+
+	@Column(name = "MaQuyen")
+	private String policyId;
+
+	@Column(name = "NgayTao")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/YYYY")
+	private Date dateCreate;
+
+	@OneToOne(mappedBy = "account")
+	private CustomerEntity customer;
+	@OneToMany(mappedBy = "account")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<RegisterEntity> registerEntityList;
+
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUserName(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public String getpassWord() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setpassWord(String passWord) {
-		this.password = passWord;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-//	public int getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(int status) {
-//		this.status = status;
-//	}
-//
-//	public String getPolicyId() {
-//		return policyId;
-//	}
-//
-//	public void setPolicyId(String policyId) {
-//		this.policyId = policyId;
-//	}
+	public int getStatus() {
+		return status;
+	}
 
-//	public Date getDateCreate() {
-//		return dateCreate;
-//	}
-//
-//	public void setDateCreate(Date dateCreate) {
-//		this.dateCreate = dateCreate;
-//	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-//	public Date getDateUpdate() {
-//		return dateUpdate;
-//	}
-//
-//	public void setDateUpdate(Date dateUpdate) {
-//		this.dateUpdate = dateUpdate;
-//	}
+	public String getPolicyId() {
+		return policyId;
+	}
+
+	public void setPolicyId(String policyId) {
+		this.policyId = policyId;
+	}
+
+	public Date getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
 
 	public AccountEntity(String userName, String passWord, int status, String policyId, Date dateCreate,
 			Date dateUpdate, Collection<CustomerEntity> customers) {
@@ -103,6 +100,4 @@ public class AccountEntity {
 		super();
 	}
 
-
-	
 }

@@ -1,1 +1,4 @@
-$(`#${$(".modal-flag").attr("idModal")}`).modal("show");
+/*let id = $(".modal-flag").attr("idModal")
+let modal = $(`#${id}`)
+modal.modal("show")*/
+
