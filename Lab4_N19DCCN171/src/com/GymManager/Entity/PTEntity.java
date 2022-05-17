@@ -9,43 +9,41 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table
-public class PTEntity {	
+@Table(name = "PT")
+public class PTEntity {
 	@Id
 	@Column(name = "MaPT")
-	private String	ptID;
-	
+	private String ptID;
+
 	@Column(name = "HoTen")
 	private String name;
-	
+
 	@Column(name = "Phai")
 	private int gender;
-	
+
 	@Column(name = "CMND")
 	private String identityCard;
-	
+
 	@Column(name = "DiaChi")
 	private String address;
-	
+
 	@Column(name = "Email")
 	private String email;
-	
+
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "YYYY-MM-dd")
 	private Date birthday;
-	
+
 	@Column(name = "SDT")
 	private String phoneNumber;
-	
+
 	@Column(name = "TrangThai")
 	private int status;
-	
+
 	@OneToMany(mappedBy = "PT")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<ClassEntity> classList;
-
-	
 
 	public String getPtID() {
 		return ptID;
@@ -127,9 +125,4 @@ public class PTEntity {
 		this.classList = classList;
 	}
 
-	
-
-
-	
-	
 }

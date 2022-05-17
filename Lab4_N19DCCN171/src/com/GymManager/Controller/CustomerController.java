@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.GymManager.Entity.CustomerEntity;
+import com.GymManager.Entity.RegisterEntity;
+import com.GymManager.Entity.TrainingPackEntity;
 import com.GymManager.ExtraClass.Message;
 
 @Controller
@@ -39,6 +41,7 @@ public class CustomerController extends MethodAdminController {
 		model.addAttribute("customer", customer);
 		model.addAttribute("customerUpdate", customer);
 		model.addAttribute("cList", getAllCustomer());
+		model.addAttribute("register", newRegister());
 		return "admin/customer";
 	}
 
@@ -132,6 +135,21 @@ public class CustomerController extends MethodAdminController {
 		return "admin/customer";
 	}
 
+	// register
+
+	@RequestMapping(value = "register/{id}.htm", method = RequestMethod.GET)
+	public String getRegister(ModelMap model, @PathVariable("id") String id) {
+		RegisterEntity register = newRegister();
+		register.setCustomer(getCustomer(id));
+		model.addAttribute("pack", getAllPackAvailable());
+		model.addAttribute("register", register);
+		model.addAttribute("customer", newCustomer());
+		model.addAttribute("customerUpdate", getCustomer(id));
+		model.addAttribute("idModal", "modal-register");
+		model.addAttribute("cList", getAllCustomer());
+		return "admin/customer";
+	}
+
 	// filter
 
 	@RequestMapping(value = "", params = "btnFilter", method = RequestMethod.GET)
@@ -183,6 +201,20 @@ public class CustomerController extends MethodAdminController {
 		CustomerEntity customer = new CustomerEntity();
 		customer.setCustomerId(this.toPK("KH", "CustomerEntity", "customerId"));
 		return customer;
+	}
+
+	public RegisterEntity newRegister() {
+		RegisterEntity register = new RegisterEntity();
+		register.setRegisterId(this.toPK("DK", "RegisterEntity", "registerId"));
+		return register;
+	}
+
+	public List<TrainingPackEntity> getAllPackAvailable() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM TrainingPackEntity where status = 1";
+		Query query = session.createQuery(hql);
+		List<TrainingPackEntity> list = query.list();
+		return list;
 	}
 
 }

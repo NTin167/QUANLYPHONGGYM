@@ -123,12 +123,4 @@ public class CustomerEntity {
 		this.registerList = registerList;
 	}
 
-	public Collection<BillEntity> getBillList() {
-		return billList;
-	}
-
-	public void setBillList(Collection<BillEntity> billList) {
-		this.billList = billList;
-	}
-
 }
