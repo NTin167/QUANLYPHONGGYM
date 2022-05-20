@@ -34,12 +34,12 @@ public class RegisterEntity {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<RegisterDetailEntity> registerDetailList;
 
-	public AccountEntity getAccount() {
-		return account;
+	public String getRegisterId() {
+		return registerId;
 	}
 
-	public void setAccount(AccountEntity account) {
-		this.account = account;
+	public void setRegisterId(String registerId) {
+		this.registerId = registerId;
 	}
 
 	public CustomerEntity getCustomer() {
@@ -48,14 +48,6 @@ public class RegisterEntity {
 
 	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
-	}
-
-	public String getRegisterId() {
-		return registerId;
-	}
-
-	public void setRegisterId(String registerId) {
-		this.registerId = registerId;
 	}
 
 	public Date getRegisterDate() {
@@ -73,8 +65,14 @@ public class RegisterEntity {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
+
+	public AccountEntity getAccount() {
+		return account;
+	}
+
+	public void setAccount(AccountEntity account) {
+		this.account = account;
+	}
 
 	public Collection<RegisterDetailEntity> getRegisterDetailList() {
 		return registerDetailList;
@@ -84,19 +82,5 @@ public class RegisterEntity {
 		this.registerDetailList = registerDetailList;
 	}
 
-	public RegisterEntity(String registerId, Date registerDate, String customerId, int status, String userName,
-			CustomerEntity customer) {
-		super();
-		this.registerId = registerId;
-		this.registerDate = registerDate;
-
-		this.status = status;
-
-		this.customer = customer;
-	}
-
-	public RegisterEntity() {
-		super();
-	}
-
+	
 }

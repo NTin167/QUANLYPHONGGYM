@@ -1,23 +1,35 @@
 package com.GymManager.Entity;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.GymManager.CompositePK.SchedulePK;
 
 @Entity
 @Table(name = "TKB_LOP")
 public class ScheduleEntity {
 	@Id
-	@Column(name = "MaTKB")
-	private String scheduleId;
-	
-	@OneToOne
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name = "Ma", unique = true, nullable = false)
+
+	private Integer id;
+
+	@ManyToOne
 	@JoinColumn(name = "MaLop")
 	private ClassEntity classEntity;
-
 	@Column(name = "Thu")
-	private int day;
-
+	private Integer day;
 	@Column(name = "Buoi")
 	private int session;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public ClassEntity getClassEntity() {
 		return classEntity;
@@ -27,11 +39,11 @@ public class ScheduleEntity {
 		this.classEntity = classEntity;
 	}
 
-	public int getDay() {
+	public Integer getDay() {
 		return day;
 	}
 
-	public void setDay(int day) {
+	public void setDay(Integer day) {
 		this.day = day;
 	}
 
@@ -42,13 +54,19 @@ public class ScheduleEntity {
 	public void setSession(int session) {
 		this.session = session;
 	}
-
-	public String getScheduleId() {
-		return scheduleId;
-	}
-
-	public void setScheduleId(String scheduleId) {
-		this.scheduleId = scheduleId;
-	}
 	
+	
+
+	public ScheduleEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ScheduleEntity(ClassEntity classEntity, Integer day, int session) {
+		super();
+		this.classEntity = classEntity;
+		this.day = day;
+		this.session = session;
+	}
+
 }

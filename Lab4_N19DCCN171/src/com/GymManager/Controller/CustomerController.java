@@ -1,10 +1,15 @@
 package com.GymManager.Controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -23,8 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.GymManager.Entity.AccountEntity;
+import com.GymManager.Entity.ClassEntity;
 import com.GymManager.Entity.CustomerEntity;
+import com.GymManager.Entity.RegisterDetailEntity;
 import com.GymManager.Entity.RegisterEntity;
+import com.GymManager.Entity.ScheduleEntity;
 import com.GymManager.Entity.TrainingPackEntity;
 import com.GymManager.ExtraClass.Message;
 
@@ -116,7 +125,7 @@ public class CustomerController extends MethodAdminController {
 			} catch (Exception e) {
 
 				t.rollback();
-				System.out.println(e);
+				System.out.println(e.getCause());
 				if (e.getCause().toString().contains("duplicate key")) {
 					result.rejectValue("customerId", "customerUpdate", "Mã  đã tồn tại");
 				}
@@ -145,6 +154,94 @@ public class CustomerController extends MethodAdminController {
 		model.addAttribute("register", register);
 		model.addAttribute("customer", newCustomer());
 		model.addAttribute("customerUpdate", getCustomer(id));
+		model.addAttribute("idModal", "modal-register");
+		model.addAttribute("cList", getAllCustomer());
+		return "admin/customer";
+	}
+
+	@RequestMapping(value = "register/{id}.htm", method = RequestMethod.POST, params = "btnRegister")
+	public String comfirmRegister(HttpServletRequest request, ModelMap model, @PathVariable("id") String id,
+			RedirectAttributes redirectAttributes) throws ParseException {
+		String classId = request.getParameter("class");
+		RegisterEntity register = newRegister();
+		String typeRegister = request.getParameter("typeRegister");
+		register.setCustomer(getCustomer(id));
+		register.setRegisterDate(new Date());
+		register.setStatus(0);
+		register.setAccount(getAccount("Q"));
+		if (!typeRegister.equals("0")) {
+
+			Session session = factory.openSession();
+			if (typeRegister.equals("1")) {
+				Transaction t = session.beginTransaction();
+				try {
+
+					session.save(register);
+					session.save(new RegisterDetailEntity(register, getClass(classId)));
+					t.commit();
+					redirectAttributes.addFlashAttribute("message", new Message("success", "Thêm thành công !!!"));
+
+					return "redirect:/admin/customer.htm";
+
+				} catch (Exception e) {
+
+					t.rollback();
+					System.out.println(e);
+				}
+
+				finally {
+					session.close();
+				}
+			} else {
+				String dateStart = request.getParameter("date-start");
+				TrainingPackEntity pack = getPack(request.getParameter("pack"));
+
+				ClassEntity personalClass = new ClassEntity();
+				personalClass.setClassId(toPK("LP", "ClassEntity", "classId"));
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+				personalClass.setDateStart(formatter.parse(dateStart));
+				personalClass.setMaxPP(1);
+				personalClass.setTrainingPack(pack);
+
+				Transaction t = session.beginTransaction();
+				try {
+
+					session.save(register);
+					session.save(personalClass);
+					session.save(new RegisterDetailEntity(register, personalClass));
+					for (int i = 2; i < 9; i++) {
+
+						String value = request.getParameter("T" + i);
+						if (value != null) {
+							ScheduleEntity schedule = new ScheduleEntity(personalClass, i, Integer.parseInt(value));
+							session.save(schedule);
+
+						}
+					}
+					t.commit();
+					redirectAttributes.addFlashAttribute("message", new Message("success", "Thêm thành công !!!"));
+
+					return "redirect:/admin/customer.htm";
+
+				} catch (Exception e) {
+
+					t.rollback();
+					System.out.println(e);
+				}
+
+				finally {
+					session.close();
+				}
+
+			}
+
+		}
+
+		String classEntityId = request.getParameter("class");
+		model.addAttribute("pack", getAllPackAvailable());
+		model.addAttribute("register", register);
+		model.addAttribute("customer", newCustomer());
+		model.addAttribute("customerUpdate", newCustomer());
 		model.addAttribute("idModal", "modal-register");
 		model.addAttribute("cList", getAllCustomer());
 		return "admin/customer";
@@ -193,8 +290,7 @@ public class CustomerController extends MethodAdminController {
 
 	public CustomerEntity getCustomer(String id) {
 		Session session = factory.getCurrentSession();
-		CustomerEntity customer = (CustomerEntity) session.get(CustomerEntity.class, id);
-		return customer;
+		return (CustomerEntity) session.get(CustomerEntity.class, id);
 	}
 
 	public CustomerEntity newCustomer() {
@@ -217,4 +313,13 @@ public class CustomerController extends MethodAdminController {
 		return list;
 	}
 
+	public TrainingPackEntity getPack(String id) {
+		Session session = factory.getCurrentSession();
+		return (TrainingPackEntity) session.get(TrainingPackEntity.class, id);
+	}
+
+	public ClassEntity getClass(String id) {
+		Session session = factory.getCurrentSession();
+		return (ClassEntity) session.get(ClassEntity.class, id);
+	}
 }

@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.GymManager.Entity.AccountEntity;
+
 @Transactional
 public class MethodAdminController {
 	@Autowired
@@ -25,7 +27,6 @@ public class MethodAdminController {
 		DecimalFormat df = new DecimalFormat("000000");
 		while (isInValid) {
 			String pkTemp = pk + df.format(number);
-			System.out.println(pkTemp);
 			String hqlwhere = hql + " WHERE " + columnPK + " = '" + pkTemp + "'";
 			query = session.createQuery(hqlwhere);
 			if (query.list().size() > 0)
@@ -79,6 +80,11 @@ public class MethodAdminController {
 
 		}
 		return hql;
+	}
+
+	public AccountEntity getAccount(String username) {
+		Session session = factory.getCurrentSession();
+		return (AccountEntity) session.get(AccountEntity.class, username);
 	}
 
 }
