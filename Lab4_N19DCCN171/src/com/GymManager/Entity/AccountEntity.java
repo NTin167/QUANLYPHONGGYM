@@ -27,10 +27,11 @@ public class AccountEntity {
 
 	@Column(name = "NgayTao")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/YYYY")
+	@DateTimeFormat(pattern = "yyy-MM-dd")
 	private Date dateCreate;
 
 	@OneToOne(mappedBy = "account")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private CustomerEntity customer;
 	@OneToMany(mappedBy = "account")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -84,20 +85,12 @@ public class AccountEntity {
 		this.customer = customer;
 	}
 
-	public AccountEntity(String userName, String passWord, int status, String policyId, Date dateCreate,
-			Date dateUpdate, Collection<CustomerEntity> customers) {
-		super();
-		this.username = userName;
-		this.password = passWord;
-//		this.status = status;
-//		this.policyId = policyId;
-//		this.dateCreate = dateCreate;
-//		this.dateUpdate = dateUpdate;
-//		this.customers = customers;
+	public Collection<RegisterEntity> getRegisterEntityList() {
+		return registerEntityList;
 	}
 
-	public AccountEntity() {
-		super();
+	public void setRegisterEntityList(Collection<RegisterEntity> registerEntityList) {
+		this.registerEntityList = registerEntityList;
 	}
 
 }
