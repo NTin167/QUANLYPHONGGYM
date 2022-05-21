@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@include file="./head.jsp"%>
 </head>
 <body>
+
+	<!--  flag -->
+	<div class="modal-flag" idModal="${idModal}"></div>
+	<div class="alert-flag" aType='${message.type}'
+		aMessage="${message.message }"></div>
+	<!-- end flag  -->
+	<!-- initial staff data -->
+	<div class="initialCSId position-absolute"
+		data="${staff.staffId }"></div>
+		
 	<!-- ======= Header ======= -->
 	<%@include file="./header.jsp"%>
 	<!-- End Header -->
@@ -38,63 +51,59 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>NV000001</td>
-										<td>Raheem Lehner</td>
-										<td>Nam</td>
-										<td>2011-04-19</td>
-
-										<td class="account-state"><span
-											class="badge rounded-pill bg-success">MinhNhat</span></td>
-										<td class="account-state"><span
-											class="badge rounded-pill bg-success">Đang làm</span></td>
-
-										<td class="text-center">
-											<button class="btn btn-outline-warning btn-light btn-sm"
-												data-bs-toggle="modal" data-bs-target="#create"
-												title="Chỉnh sửa">
-												<i class="fa-solid fa-pen-to-square"></i>
-											</button>
-											<button class="btn btn-outline-info btn-light btn-sm"
-												title="Chi tiết" data-bs-toggle="modal"
-												data-bs-target="#detail" data-bs-placement="top">
-												<i class="fa-solid fa-circle-exclamation"></i>
-											</button>
-											<button class="btn btn-outline-danger btn-light btn-sm"
-												title="Đặt lại mật khẩu" data-bs-toggle="modal"
-												data-bs-placement="top">
-												<i class="fa-solid fa-rotate"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>NV000001</td>
-										<td>Raheem Lehner</td>
-										<td>Nam</td>
-										<td>2011-04-19</td>
-										<td class="account-state"><span
+									
+									<c:forEach var="i" items="${cList}">
+										<tr>
+											<td>${i.staffId}</td>
+											<td>${i.name}</td>
+											<td>${i.gender == 0? 'Nữ':'Nam'}</td>
+											<td>${i.birthday }</td>
+											
+											<c:choose>
+											    <c:when test="${empty i.account}">
+											        <td class="account-state"><span
 											class="badge rounded-pill bg-secondary"> Chưa có tài
 												khoản</span></td>
-										<td class="account-state"><span
+											    </c:when>    
+											   	<c:otherwise>
+											         <td class="account-state"><span
+											class="badge rounded-pill bg-success">${i.account}</span></td>
+											    </c:otherwise>
+											</c:choose>
+											
+											
+											
+											<c:choose>
+											    <c:when test="${i.status==false}">
+											        <td class="account-state"><span
 											class="badge rounded-pill bg-danger">Nghỉ làm</span></td>
-										<td class="text-center">
-											<button class="btn btn-outline-warning btn-light btn-sm"
-												data-bs-toggle="modal" data-bs-target="#create"
+											    </c:when>    
+											   	<c:otherwise>
+											         <td class="account-state"><span
+											class="badge rounded-pill bg-success">Đang làm</span></td>
+											    </c:otherwise>
+											</c:choose>
+											
+											<td class="text-center">
+												<a href="admin/employee/update/${i.staffId}"><button class="btn btn-outline-warning btn-light btn-sm"
+												data-bs-toggle="modal" data-bs-target="#modal-create"
 												title="Chỉnh sửa">
 												<i class="fa-solid fa-pen-to-square"></i>
-											</button>
-											<button class="btn btn-outline-info btn-light btn-sm"
+												</button></a>
+												<a href=""><button class="btn btn-outline-info btn-light btn-sm"
 												title="Chi tiết" data-bs-toggle="modal"
-												data-bs-target="#detail" data-bs-placement="top">
+												data-bs-target="#modal-detail" data-bs-placement="top">
 												<i class="fa-solid fa-circle-exclamation"></i>
-											</button>
-											<button class="btn btn-outline-danger btn-light btn-sm"
+												</button></a>
+												<button class="btn btn-outline-danger btn-light btn-sm"
 												title="Đặt lại mật khẩu" data-bs-toggle="modal"
 												data-bs-placement="top">
 												<i class="fa-solid fa-rotate"></i>
-											</button>
-										</td>
-									</tr>
+												</button>
+											</td>
+										</tr>
+									</c:forEach>
+									
 								</tbody>
 							</table>
 
@@ -106,69 +115,94 @@
 		</section>
 
 		<!-- modal  -->
-
-		<div class="modal fade" id="create" tabindex="-1">
+		<!-- Form them nhan vien -->
+		<div class="modal fade" id="modal-create" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header bg-primary text-white px-3 py-2">
-						<h5 class="modal-title">Thêm mới nhân viên</h5>
+						<h5 class="modal-title">Chỉnh sửa thông tin nhân viên</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
+					
 					<div class="modal-body">
-						<form class="row g-3">
+						<form:form 	method="post" class="row g-3" modalAttribute="staff">
 							<div class="col-md-12">
-								<label for="inputName" class="form-label">Mã: <span
-									class="employeeId text-danger">NV000002</span>
+								<label for="input-id" class="form-label">Mã: <span
+									class="employeeId text-danger"></span><form:input
+										path="staffId" type="text" class="form-control"
+										id="input-id" />
 								</label>
 							</div>
+							
 							<div class="col-md-12">
-								<label for="inputName" class="form-label">Họ và tên</label> <input
-									type="text" class="form-control" id="inputName" />
+								<label for="input-name" class="form-label">Họ và tên</label> 
+								<form:input path="name" type="text" class="form-control" id="input-name" />
 							</div>
 							<fieldset class="col-md-12">
 								<legend class="col-form-label col-sm-2 pt-0"> Giới tính
 								</legend>
 								<div class="col-sm-12 d-flex gap-4">
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="gender"
-											id="female" value="0" checked /> <label
-											class="form-check-label" for="female"> Nữ </label>
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="female" value="0" />
+										<label class="form-check-label" for="female"> Nữ </label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="gender"
-											id="male" value="1" /> <label class="form-check-label"
-											for="male"> Nam </label>
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="male" value="1" />
+										<label class="form-check-label" for="male"> Nam </label>
 									</div>
 								</div>
 							</fieldset>
 
 							<div class="col-md-6">
-								<label for="inputBirthday" class="form-label">Ngày sinh</label>
-								<input type="date" class="form-control" id="inputBirthday" />
+								<label for="input-birthday" class="form-label">Ngày sinh</label>
+								<form:input path="birthday" type="date" class="form-control"
+									id="input-birthday" />
 							</div>
 
 							<div class="col-md-6">
-								<label for="inputIdentityCard" class="form-label">Số
-									CMND</label> <input type="number" class="form-control"
-									id="identityCard" placeholder="381..." />
+								<label for="input-idCard" class="form-label">Số
+									CMND</label> 
+								<form:input path="identityCard" type="text" class="form-control"
+									id="input-idCard" />
+									
 							</div>
 
 							<div class="col-md-6">
-								<label for="inputPhone" class="form-label">SDT</label> <input
-									type="tel" class="form-control" id="inputPhone"
-									pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+								<label for="input-phone" class="form-label">SDT</label> 
+								<form:input path="phoneNumber" type="tel" class="form-control"
+									id="input-phone" />
 							</div>
 							<div class="col-md-6">
-								<label for="inputEmail" class="form-label">Email</label> <input
-									type="email" class="form-control" id="inputEmail" />
+								<label for="input-email" class="form-label">Email</label> 
+								<form:input path="email" type="text" class="form-control"
+									id="input-email" />
 							</div>
 
 							<div class="col-12">
-								<label for="inputAddress" class="form-label">Địa chỉ</label> <input
-									type="text" class="form-control" id="inputAddress"
-									placeholder="97 Man Thiện, ..." />
+								<label for="input-address" class="form-label">Địa chỉ</label> 
+								<form:input path="address" type="text" class="form-control"
+									id="input-address" placeholder="97 Man Thiện, ..." />
 							</div>
+							
+							<fieldset class="col-md-12">
+								<legend class="col-form-label col-sm-2 pt-0"> Trạng thái
+								</legend>
+								<div class="col-sm-12 d-flex gap-4">
+									<div class="form-check">
+										<form:radiobutton path="status" class="form-check-input"
+											name="input-status" id="inactivity" value="0" />
+										<label class="form-check-label" for="inactivity"> Đã nghỉ việc </label>
+									</div>
+									<div class="form-check">
+										<form:radiobutton path="status" class="form-check-input"
+											name="input-gender" id="activity" value="1" />
+										<label class="form-check-label" for="activity"> Đang làm việc </label>
+									</div>
+								</div>
+							</fieldset>
 
 							<div class="col-12">
 								<button type="button"
@@ -200,13 +234,141 @@
 								<button type="button" class="btn btn-secondary close-form"
 									data-bs-dismiss="modal">Đóng</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<!-- update -->
+		<div class="modal fade" id="modal-update" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header bg-primary text-white px-3 py-2">
+						<h5 class="modal-title">Thêm mới nhân viên</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					
+					<div class="modal-body">
+						<form:form 
+							action="admin/customer/update/${customerUpdate.customerId}.htm" 
+							method="post" class="row g-3" modalAttribute="staff">
+							<div class="col-md-12">
+								<label for="input-id" class="form-label">Mã: <span
+									class="employeeId text-danger"></span><form:input
+										path="staffId" type="text" class="form-control"
+										id="input-id" />
+								</label>
+							</div>
+							
+							<div class="col-md-12">
+								<label for="input-name" class="form-label">Họ và tên</label> 
+								<form:input path="name" type="text" class="form-control" id="input-name" />
+							</div>
+							<fieldset class="col-md-12">
+								<legend class="col-form-label col-sm-2 pt-0"> Giới tính
+								</legend>
+								<div class="col-sm-12 d-flex gap-4">
+									<div class="form-check">
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="female" value="0" />
+										<label class="form-check-label" for="female"> Nữ </label>
+									</div>
+									<div class="form-check">
+										<form:radiobutton path="gender" class="form-check-input"
+											name="input-gender" id="male" value="1" />
+										<label class="form-check-label" for="male"> Nam </label>
+									</div>
+								</div>
+							</fieldset>
+
+							<div class="col-md-6">
+								<label for="input-birthday" class="form-label">Ngày sinh</label>
+								<form:input path="birthday" type="date" class="form-control"
+									id="input-birthday" />
+							</div>
+
+							<div class="col-md-6">
+								<label for="input-idCard" class="form-label">Số
+									CMND</label> 
+								<form:input path="identityCard" type="number" class="form-control"
+									id="input-idCard" />
+									
+							</div>
+
+							<div class="col-md-6">
+								<label for="input-phone" class="form-label">SDT</label> 
+								<form:input path="phoneNumber" type="tel" class="form-control"
+									id="input-phone" />
+							</div>
+							<div class="col-md-6">
+								<label for="input-email" class="form-label">Email</label> 
+								<form:input path="email" type="text" class="form-control"
+									id="input-email" />
+							</div>
+
+							<div class="col-12">
+								<label for="input-address" class="form-label">Địa chỉ</label> 
+								<form:input path="address" type="text" class="form-control"
+									id="input-address" placeholder="97 Man Thiện, ..." />
+							</div>
+							
+							<fieldset class="col-md-12">
+								<legend class="col-form-label col-sm-2 pt-0"> Trạng thái
+								</legend>
+								<div class="col-sm-12 d-flex gap-4">
+									<div class="form-check">
+										<form:radiobutton path="status" class="form-check-input"
+											name="input-status" id="inactivity" value="0" />
+										<label class="form-check-label" for="inactivity"> Đã nghỉ việc </label>
+									</div>
+									<div class="form-check">
+										<form:radiobutton path="status" class="form-check-input"
+											name="input-gender" id="activity" value="1" />
+										<label class="form-check-label" for="activity"> Đang làm việc </label>
+									</div>
+								</div>
+							</fieldset>
+
+							<div class="col-12">
+								<button type="button"
+									class="btn btn-outline-primary btn-create-account col-12"
+									data-bs-toggle="collapse" data-bs-target="#form-create-account"
+									onClick="toggleBtnState(this, 'btn-outline-danger')">
+									<i class="bi bi-plus-circle"></i> <span class="">Tạo tài
+										khoản mới</span>
+								</button>
+							</div>
+							<div class="collapse col-12" id="form-create-account">
+								<div class="row">
+									<div class="col-6" data-link="account" data-n="2">
+										<label for="input-username" class="form-label">Tên tài
+											khoản</label> <input type="text" class="form-control"
+											id="input-username" />
+									</div>
+									<div class="col-6">
+										<label for="input-password" class="form-label">Mật
+											khẩu</label> <input type="password" class="form-control"
+											id="input-password" />
+									</div>
+								</div>
+							</div>
+
+							<div class="text-end mt-3">
+								<button type="submit" class="btn btn-primary">Xác nhận
+								</button>
+								<button type="button" class="btn btn-secondary close-form"
+									data-bs-dismiss="modal">Đóng</button>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<!-- detail -->
-		<div class="modal fade" id="detail" tabindex="-1">
+		<div class="modal fade" id="modal-detail" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header bg-primary text-white px-3 py-2">

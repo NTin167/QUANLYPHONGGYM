@@ -3,6 +3,7 @@ package com.GymManager.Entity;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -38,6 +39,9 @@ public class StaffEntity {
 	
 	@Column(name = "SDT")
 	private String phoneNumber;
+	
+	@Column(name="TrangThai")
+	private int status;
 	
 	@OneToOne
 	@JoinColumn(name = "TaiKhoan")
@@ -95,6 +99,12 @@ public class StaffEntity {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	public AccountEntity getAccount() {
 		return account;
