@@ -16,9 +16,8 @@
 		aMessage="${message.message }"></div>
 	<!-- end flag  -->
 	<!-- initial staff data -->
-	<div class="initialCSId position-absolute"
-		data="${staff.staffId }"></div>
-		
+	<div class="initialCSId position-absolute" data="${staff.staffId }"></div>
+
 	<!-- ======= Header ======= -->
 	<%@include file="./header.jsp"%>
 	<!-- End Header -->
@@ -51,6 +50,7 @@
 									</tr>
 								</thead>
 								<tbody>
+
 									
 									<c:forEach var="c" items="${cList}">
 										<tr>
@@ -69,11 +69,13 @@
 											         <td class="account-state"><span
 											class="badge rounded-pill bg-success">${c.account}</span></td>
 											    </c:otherwise>
+
 											</c:choose>
-											
-											
-											
+
+
+
 											<c:choose>
+
 											    <c:when test="${c.status==0}">
 											        <td class="account-state"><span
 											class="badge rounded-pill bg-danger">Nghỉ làm</span></td>
@@ -95,15 +97,15 @@
 												data-bs-target="#detail" data-bs-placement="top">
 												<i class="fa-solid fa-circle-exclamation"></i>
 												</button></a>
+
 												<button class="btn btn-outline-danger btn-light btn-sm"
-												title="Đặt lại mật khẩu" data-bs-toggle="modal"
-												data-bs-placement="top">
-												<i class="fa-solid fa-rotate"></i>
-												</button>
-											</td>
+													title="Đặt lại mật khẩu" data-bs-toggle="modal"
+													data-bs-placement="top">
+													<i class="fa-solid fa-rotate"></i>
+												</button></td>
 										</tr>
 									</c:forEach>
-									
+
 								</tbody>
 							</table>
 
@@ -116,6 +118,7 @@
 
 		<!-- modal  -->
 		<!-- Form them nhan vien -->
+
 <div class="modal fade" id="modal-create" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -191,6 +194,7 @@
                             
                     </div>
 
+
                     <div class="col-12">
                         <label for="input-address" class="form-label">Địa chỉ</label> 
                         <form:input path="address" type="text" class="form-control"
@@ -238,6 +242,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <div class="text-end mt-3">
                         <button type="submit" name="btnCreate" class="btn btn-primary">Xác nhận
@@ -378,6 +383,7 @@
     </div>
 </div>
 		
+
 		<!-- detail -->
 		<div class="modal fade" id="modal-detail" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">

@@ -40,7 +40,7 @@ public class EmployeeController extends MethodAdminController {
 	public String index(ModelMap model) {
 		StaffEntity staff = newStaff();
 		model.addAttribute("staff",staff);
-		model.addAttribute("staffUpdate", staff);
+//		model.addAttribute("staffUpdate", staff);
 		model.addAttribute("cList", getAllStaff());
 		return "admin/employee";
 	}
