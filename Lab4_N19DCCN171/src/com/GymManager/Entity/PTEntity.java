@@ -4,46 +4,58 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "PT")
-public class PTEntity {
+@Table(name="PT")
+public class PTEntity {	
 	@Id
 	@Column(name = "MaPT")
 	private String ptID;
-
+	
 	@Column(name = "HoTen")
-	private String name;
-
+	private String ptName;
+	
 	@Column(name = "Phai")
 	private int gender;
-
+	
 	@Column(name = "CMND")
 	private String identityCard;
-
+	
 	@Column(name = "DiaChi")
 	private String address;
-
+	
 	@Column(name = "Email")
 	private String email;
-
+	
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "YYYY-MM-dd")
+	@DateTimeFormat(pattern = "dd/MM/YYYY")
 	private Date birthday;
-
+	
 	@Column(name = "SDT")
 	private String phoneNumber;
-
+	
 	@Column(name = "TrangThai")
 	private int status;
+	
+	@OneToMany(mappedBy ="ptEntity", fetch = FetchType.EAGER)
+	private Collection<ClassEntity> classEntity;
 
-	@OneToMany(mappedBy = "PT")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Collection<ClassEntity> classList;
+	public Collection<ClassEntity> getClassEntity() {
+		return classEntity;
+	}
+
+
+	public void setClassEntity(Collection<ClassEntity> classEntity) {
+		this.classEntity = classEntity;
+	}
+
+
+	public PTEntity(Collection<ClassEntity> classEntities) {
+		super();
+	}
+
 
 	public String getPtID() {
 		return ptID;
@@ -53,12 +65,12 @@ public class PTEntity {
 		this.ptID = ptID;
 	}
 
-	public String getName() {
-		return name;
+	public String getPtName() {
+		return ptName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPtName(String ptName) {
+		this.ptName = ptName;
 	}
 
 	public int getGender() {
@@ -117,12 +129,30 @@ public class PTEntity {
 		this.status = status;
 	}
 
-	public Collection<ClassEntity> getClassList() {
-		return classList;
+
+	
+
+	public PTEntity(String ptID, String ptName, int gender, String identityCard, String address, String email,
+			Date birthday, String phoneNumber, int status, Collection<ClassEntity> classEntity) {
+		super();
+		this.ptID = ptID;
+		this.ptName = ptName;
+		this.gender = gender;
+		this.identityCard = identityCard;
+		this.address = address;
+		this.email = email;
+		this.birthday = birthday;
+		this.phoneNumber = phoneNumber;
+		this.status = status;
+		this.classEntity = classEntity;
 	}
 
-	public void setClassList(Collection<ClassEntity> classList) {
-		this.classList = classList;
+
+	public PTEntity() {
+		super();
 	}
 
+
+	
+	
 }

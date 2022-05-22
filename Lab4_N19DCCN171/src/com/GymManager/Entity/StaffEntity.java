@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -33,14 +34,13 @@ public class StaffEntity {
 	@NotEmpty(message = "email khong duoc bo trong")
 	@Column(name = "Email")
 	private String email;
-	@NotEmpty(message = "ngay sinh nho hon ngay hien tai")
+	@PastOrPresent(message = "ngay sinh nho hon ngay hien tai")
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	@Column(name = "SDT")
 	private String phoneNumber;
-	
 	@Column(name="TrangThai")
 	private int status;
 	
