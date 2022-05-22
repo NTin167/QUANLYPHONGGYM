@@ -93,7 +93,7 @@ public class CustomerController extends MethodAdminController {
 		return "admin/customer";
 	}
 
-	// update customer
+	// update customer //
 
 	// return views update
 	@RequestMapping(value = "update/{id}.htm", method = RequestMethod.GET)
@@ -243,6 +243,17 @@ public class CustomerController extends MethodAdminController {
 		model.addAttribute("customer", newCustomer());
 		model.addAttribute("customerUpdate", newCustomer());
 		model.addAttribute("idModal", "modal-register");
+		model.addAttribute("cList", getAllCustomer());
+		return "admin/customer";
+	}
+
+	// detail
+	@RequestMapping(value = "/detail/{id}.htm", method = RequestMethod.GET)
+	public String getDetail(ModelMap model, @PathVariable("id") String id) {
+		model.addAttribute("customer", newCustomer());
+		model.addAttribute("customerUpdate", newCustomer());
+		model.addAttribute("customerDetail", getCustomer(id));
+		model.addAttribute("idModal", "modal-detail");
 		model.addAttribute("cList", getAllCustomer());
 		return "admin/customer";
 	}

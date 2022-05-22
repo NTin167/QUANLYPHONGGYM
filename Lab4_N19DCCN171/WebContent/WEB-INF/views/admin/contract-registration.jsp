@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,51 +39,39 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>NV000001</td>
-										<td>Raheem Lehner</td>
-										<td>Nguyễn Minh Nhật</td>
-										<td>2011-04-19</td>
+									<c:forEach var="r" items="${registerList}">
+										<tr>
+											<td>${r.registerId}</td>
+											<td>${r.customer.name}</td>
+											<td>${r.account.username}</td>
+											<td>${r.registerDate}</td>
 
-										<td class="account-state"><span
-											class="badge rounded-pill bg-success">Đã thanh toán</span></td>
+											<td class="account-state"><c:if test="${r.status == 0}">
+													<span class="badge rounded-pill bg-danger">Chưa
+														thanh toán</span>
+												</c:if> <c:if test="${r.status == 1}">
+													<span class="badge rounded-pill bg-success">Đã thanh
+														toán</span>
+												</c:if></td>
 
-										<td class="text-center">
-											<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-												data-bs-target="#contract-registration-modal"
-												title="Đăng ký gói tập">
-												<i class="fa-regular fa-file-signature"></i> <span>Chi
-													tiết và chỉnh sửa</span>
-											</button>
-											<button class="btn btn-secondary disabled btn-sm"
-												title="Lập hoá đơn">
-												<i class="fa-light fa-ballot"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>NV000001</td>
-										<td>Raheem Lehner</td>
-										<td>Nguyễn Minh Nhật</td>
-										<td>2011-04-19</td>
-
-										<td class="account-state"><span
-											class="badge rounded-pill bg-secondary">Chưa thanh
-												toán</span></td>
-
-										<td class="text-center">
-											<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-												data-bs-target="#contract-registration-modal"
-												title="Đăng ký gói tập">
-												<i class="fa-regular fa-file-signature"></i> <span>Chi
-													tiết và chỉnh sửa</span>
-											</button>
-											<button class="btn btn-outline-success btn-sm"
-												title="Lập hoá đơn">
-												<i class="fa-solid fa-ballot"></i>
-											</button>
-										</td>
-									</tr>
+											<td class="text-center"><a
+												href="admin/customer/update/${c.customerId}.htm"><button
+														class="btn btn-outline-warning btn-light btn-sm"
+														title="Chỉnh sửa">
+														<i class="fa-solid fa-pen-to-square"></i>
+													</button> </a> <a href="admin/customer/detail/${c.customerId}.htm">
+													<button class="btn btn-outline-info btn-light btn-sm"
+														title="Chi tiết" data-bs-toggle="modal"
+														data-bs-target="#detail" data-bs-placement="top">
+														<i class="fa-solid fa-circle-exclamation"></i>
+													</button>
+											</a>
+												<button class="btn btn-secondary disabled btn-sm"
+													title="Lập hoá đơn">
+													<i class="fa-light fa-ballot"></i>
+												</button></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 

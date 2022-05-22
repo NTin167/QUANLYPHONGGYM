@@ -17,8 +17,8 @@
 							class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 							<div class="d-flex justify-content-center py-4">
 								<a href="index.html"
-									class="logo d-flex align-items-center w-auto">
-									<img src="assets/img/logo.png" alt="" /> <span
+									class="logo d-flex align-items-center w-auto"> <img
+									src="assets/img/logo.png" alt="" /> <span
 									class="d-none d-lg-block">Quản lý PTIT GYM</span>
 								</a>
 							</div>
@@ -33,24 +33,25 @@
 											khẩu để đăng nhập</p>
 									</div>
 
-									<form class="row g-3 needs-validation" novalidate>
+									<form action="admin/login.htm" method="post"
+										class="row g-3 needs-validation" novalidate>
 										<div class="col-12">
-											<label for="yourUsername" class="form-label">Tên
-												đăng nhập</label> <input type="text" name="username"
-												class="form-control" id="yourUsername" required />
+											<label for="yourUsername" class="form-label">Tên đăng
+												nhập</label> <input type="text" name="username" class="form-control"
+												id="yourUsername" required />
 											<div class="invalid-feedback">Không được bỏ trống</div>
 										</div>
 
 										<div class="col-12">
-											<label for="yourPassword" class="form-label">Mật
-												khẩu</label> <input type="password" name="password"
-												class="form-control" id="yourPassword" required />
-											<div class="invalid-feedback">Không được bỏ trống</div>
+											<label for="yourPassword" class="form-label">Mật khẩu</label>
+											<input type="password" name="password" class="form-control"
+												id="yourPassword" required />
+											<div class="text-danger">${matKhau}</div>
 										</div>
 
 										<div class="col-12">
-											<button class="btn btn-primary w-100" type="submit">
-												Login</button>
+											<button name="btnLogin" class="btn btn-primary w-100"
+												type="submit">Login</button>
 										</div>
 									</form>
 								</div>

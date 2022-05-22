@@ -27,7 +27,7 @@ public class CustomerEntity {
 	@Column(name = "HoTen")
 	private String name;
 	@Column(name = "Phai")
-	private int gender;
+	private boolean gender;
 	@NotEmpty(message = "Dịa chỉ không được bỏ trống")
 	@Column(name = "DiaChi")
 	private String address;
@@ -67,20 +67,20 @@ public class CustomerEntity {
 		this.name = name;
 	}
 
-	public int getGender() {
-		return gender;
-	}
-
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
-
 	public String getAddress() {
 		return address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public boolean isGender() {
+		return gender;
+	}
+
+	public void setGender(boolean gender) {
+		this.gender = gender;
 	}
 
 	public String getEmail() {
