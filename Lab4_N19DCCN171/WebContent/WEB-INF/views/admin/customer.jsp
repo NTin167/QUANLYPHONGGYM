@@ -54,7 +54,7 @@
 										<tr>
 											<td>${c.customerId}</td>
 											<td>${c.name}</td>
-											<td>${c.gender == 0? 'Nữ':'Nam'}</td>
+											<td>${c.gender? 'Nam':'Nữ'}</td>
 											<td>2011-04-19</td>
 
 											<td class="account-state"><span
@@ -71,43 +71,15 @@
 														class="btn btn-outline-warning btn-light btn-sm"
 														title="Chỉnh sửa">
 														<i class="fa-solid fa-pen-to-square"></i>
-													</button> </a>
-												<button class="btn btn-outline-info btn-light btn-sm"
-													title="Chi tiết" data-bs-toggle="modal"
-													data-bs-target="#detail" data-bs-placement="top">
-													<i class="fa-solid fa-circle-exclamation"></i>
-												</button></td>
+													</button> </a> <a href="admin/customer/detail/${c.customerId}.htm">
+													<button class="btn btn-outline-info btn-light btn-sm"
+														title="Chi tiết" data-bs-toggle="modal"
+														data-bs-target="#detail" data-bs-placement="top">
+														<i class="fa-solid fa-circle-exclamation"></i>
+													</button>
+											</a></td>
 										</tr>
 									</c:forEach>
-
-									<tr id="NV000001" name="nhat" gender="1" birthday="2011-04-19"
-										email="nhat@gmail.com" phone="123123121"
-										address="97 man thiên">
-										<td>NV000001</td>
-										<td>Raheem Lehner</td>
-										<td>Nam</td>
-										<td>2011-04-19</td>
-
-										<td class="account-state"><span
-											class="badge rounded-pill bg-secondary">Chưa đăng ký</span></td>
-
-										<td class="text-center">
-											<button class="btn btn-primary btn-sm"
-												title="Đăng ký gói tập">
-												<i class="fa-regular fa-file-signature"></i> <span>Đăng
-													ký tập</span>
-											</button>
-											<button class="btn btn-outline-warning btn-light btn-sm"
-												title="Chỉnh sửa">
-												<i class="fa-solid fa-pen-to-square"></i>
-											</button>
-											<button class="btn btn-outline-info btn-light btn-sm"
-												title="Chi tiết" data-bs-toggle="modal"
-												data-bs-target="#detail" data-bs-placement="top">
-												<i class="fa-solid fa-circle-exclamation"></i>
-											</button>
-										</td>
-									</tr>
 								</tbody>
 							</table>
 
@@ -380,7 +352,6 @@
 															</c:if>
 														</c:forEach>
 													</c:forEach>
-
 												</select>
 											</div>
 											<span>Hoặc</span>
@@ -584,7 +555,7 @@
 			</div>
 		</div>
 		<!-- table detail -->
-		<div class="modal fade" id="detail" tabindex="-1">
+		<div class="modal fade" id="modal-detail" tabindex="-1">
 			<div class="modal-dialog modal-lg modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header bg-primary text-white px-3 py-2">
@@ -617,34 +588,33 @@
 													id="profile-overview">
 													<div class="row mt-4">
 														<div class="col-lg-3 col-md-4 label">Họ và Tên</div>
-														<div class="col-lg-9 col-md-8">Nguyễn Minh Nhật</div>
+														<div class="col-lg-9 col-md-8">${customerDetail.name}</div>
 													</div>
 
 													<div class="row">
 														<div class="col-lg-3 col-md-4 label">Giới tính</div>
-														<div class="col-lg-9 col-md-8">Nam</div>
+														<div class="col-lg-9 col-md-8">${customerDetail.gender?'Nam':'Nữ'}</div>
 													</div>
 													<div class="row">
 														<div class="col-lg-3 col-md-4 label">Ngày Sinh</div>
-														<div class="col-lg-9 col-md-8">30/11/2001</div>
+														<div class="col-lg-9 col-md-8">${customerDetail.birthday}</div>
 													</div>
 
 													<div class="row">
 														<div class="col-lg-3 col-md-4 label">Địa chỉ</div>
-														<div class="col-lg-9 col-md-8">A108 Adam Street, New
-															York, NY 535022</div>
+														<div class="col-lg-9 col-md-8">${customerDetail.address}</div>
 													</div>
 
 													<div class="row">
 														<div class="col-lg-3 col-md-4 label">Số điện thoại</div>
-														<div class="col-lg-9 col-md-8">(436) 486-3538 x29071
+														<div class="col-lg-9 col-md-8">${customerDetail.phone}
 														</div>
 													</div>
 
 													<div class="row">
 														<div class="col-lg-3 col-md-4 label">Email</div>
 														<div class="col-lg-9 col-md-8">
-															k.anderson@example.com</div>
+															${customerDetail.email}</div>
 													</div>
 												</div>
 
@@ -656,45 +626,63 @@
 														<div class="col-2">Trạng thái</div>
 														<div class="col-3">Người đăng ký</div>
 													</div>
-													<div
-														class="row bg-light p-2 rounded border border-secondary align-items-center">
-														<div class="col-2">TTDK0001</div>
-														<div class="col-2">30/11/2001</div>
-														<div class="col-2">
-															<span class="badge rounded-pill bg-danger">Chưa
-																thanh toán</span>
-														</div>
-														<div class="col-3">Nguyễn Minh Nhật</div>
-														<div class="col-3 text-primary" style="cursor: pointer">
-															<span data-bs-toggle="collapse" href="#TTDK0001">
-																Chi tiết <i class="fa-solid fa-angle-down"></i>
-															</span>
-															<button title="Chỉnh sửa"
-																class="btn btn-outline-warning btn-sm btn-light">
-																<i class="fa-solid fa-pen-to-square"></i>
-															</button>
-															<button title="Tạo hoá đơn"
-																class="btn btn-outline-success btn-sm btn-light">
-																<i class="fa-solid fa-ballot"></i>
-															</button>
-														</div>
 
-														<div class="collapse" id="TTDK0001">
-															<div class="my-4">
-																<div class="p-2 bg-white mb-3 rounded">
-																	Gói tập <span class="text-primary">XXXXXXXX</span> -
-																	Ngày tập <span class="text-primary">30/11/2022</span> -
-																	Thời hạn<span class="text-primary"> 6 tháng</span> -
-																	Hình thức <span class="text-primary">cá nhân</span> -
-																	TKB
-																	<button
-																		class="btn btn-outline-success btn-light btn-sm">
-																		<i class="fa-regular fa-calendar-days"></i>
+													<c:forEach var="r" items="${customerDetail.registerList}">
+														<div
+															class="row bg-light p-2 rounded border border-secondary align-items-center mb-4">
+															<div class="col-2">${r.registerId}</div>
+															<div class="col-2">${r.registerDate}</div>
+															<div class="col-2">
+																<c:if test="${r.status == 0}">
+																	<span class="badge rounded-pill bg-danger">Chưa
+																		thanh toán</span>
+																</c:if>
+																<c:if test="${r.status == 1}">
+																	<span class="badge rounded-pill bg-success">Đã
+																		thanh toán</span>
+																</c:if>
+
+															</div>
+															<div class="col-3">${r.account.username}</div>
+															<div class="col-3 text-primary" style="cursor: pointer">
+																<span data-bs-toggle="collapse" href="#${r.registerId}">
+																	Chi tiết <i class="fa-solid fa-angle-down"></i>
+																</span>
+																<button title="Chỉnh sửa"
+																	class="btn btn-outline-warning btn-sm btn-light">
+																	<i class="fa-solid fa-pen-to-square"></i>
+																</button>
+																<c:if test="${r.status == 0}">
+																	<button title="Tạo hoá đơn"
+																		class="btn btn-outline-success btn-sm btn-light">
+																		<i class="fa-solid fa-ballot"></i>
 																	</button>
+																</c:if>
+
+															</div>
+
+															<div class="collapse" id="${r.registerId}">
+																<div class="my-4">
+																	<c:forEach var="d" items="${r.registerDetailList}">
+																		<div class="p-2 bg-info mb-3 rounded">
+																			Gói tập <span class="text-primary">${d.classEntity.trainingPack.packName}</span>
+																			- Ngày tập <span class="text-primary">${d.classEntity.dateStart}</span>
+																			- Thời hạn<span class="text-primary">
+																				${d.classEntity.trainingPack.packDuration} tháng</span> -
+																			Hình thức <span class="text-primary">${d.classEntity.maxPP == 1?'Cá nhân':'Lớp' }</span>
+																			- TKB
+																			<button
+																				class="btn btn-outline-success btn-light btn-sm">
+																				<i class="fa-regular fa-calendar-days"></i>
+																			</button>
+																		</div>
+																	</c:forEach>
+
 																</div>
 															</div>
 														</div>
-													</div>
+													</c:forEach>
+
 												</div>
 											</div>
 											<!-- End Bordered Tabs -->
