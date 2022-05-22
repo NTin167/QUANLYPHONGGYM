@@ -13,8 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -23,27 +21,29 @@ public class TrainingPackEntity {
 	@Id
 	@Column(name = "MaGoi")
 	private String packID;
-
+	
 	@Column(name = "TenGoi")
 	private String packName;
-
+	
 	@Column(name = "ThoiHanGoi")
 	private int packDuration;
 
 	@Column(name = "TrangThai")
-	private boolean status;
-
-	@ManyToOne
+	private String status;
+	
+	@Column(name="LoaiGoi", insertable = false, updatable= false)
+	private String packTypeID;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "LoaiGoi")
-	private TrainingPackTypeEntity trainingPack;
-
-	@Column(name = "GiaTien")
+	private TrainingPackTypeEntity trainingPackTypeEntity;
+	
+	@Column(name ="GiaTien")
 	private float money;
 
-	@OneToMany(mappedBy = "trainingPack")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy ="trainingPackEntity", fetch = FetchType.EAGER)
 	private Collection<ClassEntity> classList;
-
+	
 	public String getPackID() {
 		return packID;
 	}
@@ -68,20 +68,28 @@ public class TrainingPackEntity {
 		this.packDuration = packDuration;
 	}
 
-	public boolean isStatus() {
+	public String getPackTypeID() {
+		return packTypeID;
+	}
+
+	public void setPackTypeID(String packTypeID) {
+		this.packTypeID = packTypeID;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public TrainingPackTypeEntity getTrainingPack() {
-		return trainingPack;
+	public TrainingPackTypeEntity getTrainingPackTypeEntity() {
+		return trainingPackTypeEntity;
 	}
 
-	public void setTrainingPack(TrainingPackTypeEntity trainingPack) {
-		this.trainingPack = trainingPack;
+	public void setTrainingPackTypeEntity(TrainingPackTypeEntity trainingPackTypeEntity) {
+		this.trainingPackTypeEntity = trainingPackTypeEntity;
 	}
 
 	public float getMoney() {
@@ -92,14 +100,26 @@ public class TrainingPackEntity {
 		this.money = money;
 	}
 
-	public Collection<ClassEntity> getClassList() {
-		return classList;
+
+
+	public TrainingPackEntity(String packID, String packName, int packDuration, String status, String packTypeID,
+			TrainingPackTypeEntity trainingPackTypeEntity, float money) {
+		super();
+		this.packID = packID;
+		this.packName = packName;
+		this.packDuration = packDuration;
+		this.status = status;
+		this.packTypeID = packTypeID;
+		this.trainingPackTypeEntity = trainingPackTypeEntity;
+		this.money = money;
 	}
 
-	public void setClassList(Collection<ClassEntity> classList) {
-		this.classList = classList;
+	public TrainingPackEntity() {
+		super();
 	}
-	
+
 	
 
+
+	 
 }

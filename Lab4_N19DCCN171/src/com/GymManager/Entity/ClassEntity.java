@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,8 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -23,55 +22,53 @@ public class ClassEntity {
 	@Id
 	@Column(name = "MaLop")
 	private String classId;
-
+	
 	@Column(name = "NgayMoDK")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateOpen;
-
+	
 	@Column(name = "NgayDongDK")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateClose;
-
+	
 	@Column(name = "NgayBatDauLop")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateStart;
-
+	
 	@Column(name = "SoLuongNguoiToiDa")
 	private int maxPP;
-	@ManyToOne
+	
+	// join to column
+	@Column(name = "PT", insertable = false, updatable= false)
+	private String PT;
+	
+
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PT")
-	private PTEntity PT;
+	private PTEntity ptEntity;
 
-	@ManyToOne
-	@JoinColumn(name = "MaGoi")
-	private TrainingPackEntity trainingPack;
 	
-	@OneToOne(mappedBy = "classEntity")
-	private ScheduleEntity scheduleEntity;
+	@Column(name = "MaGoi", insertable = false, updatable= false)
+	private String packId;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name ="MaGoi")
+	private TrainingPackEntity trainingPackEntity;
+	
+	@OneToMany(mappedBy ="classEntity", fetch = FetchType.EAGER)
+	private Collection<ScheduleEntity> scheduleEntity;
 	
 
-	public ScheduleEntity getScheduleEntity() {
-		return scheduleEntity;
+	public TrainingPackEntity getTrainingPackEntity() {
+		return trainingPackEntity;
 	}
 
-	public void setScheduleEntity(ScheduleEntity scheduleEntity) {
-		this.scheduleEntity = scheduleEntity;
-	}
-
-	@OneToMany(mappedBy = "classEntity")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Collection<RegisterDetailEntity> registerDetailList;
-
-	public Collection<RegisterDetailEntity> getRegisterDetailList() {
-		return registerDetailList;
-	}
-
-	public void setRegisterDetailList(Collection<RegisterDetailEntity> registerDetailList) {
-		this.registerDetailList = registerDetailList;
+	public void setTrainingPackEntity(TrainingPackEntity trainingPackEntity) {
+		this.trainingPackEntity = trainingPackEntity;
 	}
 
 	public String getClassId() {
@@ -114,20 +111,52 @@ public class ClassEntity {
 		this.maxPP = maxPP;
 	}
 
-	public PTEntity getPT() {
+
+
+	public String getPackId() {
+		return packId;
+	}
+
+	public void setPackId(String packId) {
+		this.packId = packId;
+	}
+
+
+
+
+
+	public String getPT() {
 		return PT;
 	}
 
-	public void setPT(PTEntity pT) {
+	public void setPT(String pT) {
 		PT = pT;
 	}
 
-	public TrainingPackEntity getTrainingPack() {
-		return trainingPack;
+	public PTEntity getPtEntity() {
+		return ptEntity;
 	}
 
-	public void setTrainingPack(TrainingPackEntity trainingPack) {
-		this.trainingPack = trainingPack;
+	public void setPtEntity(PTEntity ptEntity) {
+		this.ptEntity = ptEntity;
+	}
+
+	public ClassEntity(String classId, Date dateOpen, Date dateClose, Date dateStart, int maxPP, String pT,
+			PTEntity ptEntity, String packId, TrainingPackEntity trainingPackEntity) {
+		super();
+		this.classId = classId;
+		this.dateOpen = dateOpen;
+		this.dateClose = dateClose;
+		this.dateStart = dateStart;
+		this.maxPP = maxPP;
+		PT = pT;
+		this.ptEntity = ptEntity;
+		this.packId = packId;
+		this.trainingPackEntity = trainingPackEntity;
+	}
+
+	public ClassEntity() {
+		super();
 	}
 
 }

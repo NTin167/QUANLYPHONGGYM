@@ -1,10 +1,6 @@
 package com.GymManager.Entity;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
-
-import com.GymManager.CompositePK.SchedulePK;
 
 @Entity
 @Table(name = "TKB_LOP")
@@ -12,12 +8,16 @@ public class ScheduleEntity {
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "Ma", unique = true, nullable = false)
-
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "MaLop")
+	@Column(name="MaLop")
+	private String classId;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name ="MaLop", insertable = false, updatable= false)
 	private ClassEntity classEntity;
+	
+	
 	@Column(name = "Thu")
 	private Integer day;
 	@Column(name = "Buoi")
@@ -54,19 +54,23 @@ public class ScheduleEntity {
 	public void setSession(int session) {
 		this.session = session;
 	}
-	
-	
 
-	public ScheduleEntity() {
+	public ScheduleEntity(String classId, ClassEntity classEntity, Integer day, int session) {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public ScheduleEntity(ClassEntity classEntity, Integer day, int session) {
-		super();
+		this.classId = classId;
 		this.classEntity = classEntity;
 		this.day = day;
 		this.session = session;
 	}
 
+	public ScheduleEntity() {
+		super();
+	}
+	
+	
+
+	
+
+
+	
 }

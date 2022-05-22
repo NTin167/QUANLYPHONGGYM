@@ -45,6 +45,18 @@ public class EmployeeController extends MethodAdminController {
 		return "admin/employee";
 	}
 	
+	//detail
+	@RequestMapping(value="detail/{id}.htm", method = RequestMethod.GET)
+	public String getDetail(ModelMap model, @PathVariable("id") String id) {
+		model.addAttribute("staff", newStaff());
+		model.addAttribute("staffUpdate", newStaff());
+		model.addAttribute("staffDetail", getStaff(id));
+		model.addAttribute("idModal", "modal-detail");
+		model.addAttribute("cList", getAllStaff());
+		return "admin/employee";
+		
+	}
+	
 	// create employee
 		@RequestMapping(method = RequestMethod.POST, params = "btnCreate")
 		public String createStaff(ModelMap model, @Validated @ModelAttribute("staff") StaffEntity staff,
