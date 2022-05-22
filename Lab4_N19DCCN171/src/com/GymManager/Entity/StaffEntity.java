@@ -14,29 +14,30 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class StaffEntity {
 	
 	@Id
+	@NotEmpty(message = "MaNV khong duoc bo trong")
 	@Column(name = "MaNV")
 	private String staffId;
-	
+
+	@NotEmpty(message = "Ho ten ko duoc bo trong")
 	@Column(name = "HoTen")
 	private String name;
 	
 	@Column(name = "Phai")
 	private int gender;
-	
+	@NotEmpty(message = "cmnd khong duoc bo trong")	
 	@Column(name = "CMND")
 	private String identityCard;
-	
+	@NotEmpty(message = "dia chi khong duoc bo trong")
 	@Column(name = "DiaChi")
 	private String address;
-	
+	@NotEmpty(message = "email khong duoc bo trong")
 	@Column(name = "Email")
 	private String email;
-	
+	@NotEmpty(message = "ngay sinh nho hon ngay hien tai")
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
-	
 	@Column(name = "SDT")
 	private String phoneNumber;
 	

@@ -32,14 +32,6 @@ import com.GymManager.ExtraClass.Message;
 @Controller
 @RequestMapping("admin/employee")
 @Transactional
-//public class EmployeeController {
-//	@Autowired
-//	SessionFactory factory;
-//	@RequestMapping("")
-//	public String index(ModelMap model) {
-//		return "admin/employee";
-//	}
-//	
 public class EmployeeController extends MethodAdminController {
 	@Autowired
 	SessionFactory factory;
@@ -88,7 +80,12 @@ public class EmployeeController extends MethodAdminController {
 				}
 			}
 			model.addAttribute("idModal", "modal-create");
+			model.addAttribute("staff",staff);
 			model.addAttribute("staffUpdate", staff);
+			model.addAttribute("cList", getAllStaff());
+
+			
+			
 			return "admin/employee";
 		}
 
@@ -102,6 +99,7 @@ public class EmployeeController extends MethodAdminController {
 			model.addAttribute("staffUpdate", getStaff(id));
 			model.addAttribute("idModal", "modal-update");
 			model.addAttribute("cList", getAllStaff());
+			
 			return "admin/employee";
 		}
 
@@ -138,8 +136,10 @@ public class EmployeeController extends MethodAdminController {
 				}
 			}
 			model.addAttribute("idModal", "modal-update");
-			model.addAttribute("customer", newStaff());
+			model.addAttribute("staff",newStaff());
 			model.addAttribute("cList", getAllStaff());
+			model.addAttribute("staffUpdate", staff);
+
 			return "admin/employee";
 		}
 
@@ -166,7 +166,7 @@ public class EmployeeController extends MethodAdminController {
 			whereClause = toHqlWhereClause(conditionCluaseList);
 			String hql = "from StaffEntity " + whereClause;
 			Query query = session.createQuery(hql);
-			List<CustomerEntity> list = query.list();
+			List<StaffEntity> list = query.list();
 			model.addAttribute("cList", list);
 			StaffEntity staff = newStaff();
 			model.addAttribute("staff", staff);
@@ -186,8 +186,7 @@ public class EmployeeController extends MethodAdminController {
 
 		public StaffEntity getStaff(String id) {
 			Session session = factory.getCurrentSession();
-			StaffEntity staff = (StaffEntity) session.get(StaffEntity.class, id);
-			return staff;
+			return (StaffEntity) session.get(StaffEntity.class, id);
 		}
 
 		public StaffEntity newStaff() {
