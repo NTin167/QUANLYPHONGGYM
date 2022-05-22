@@ -66,4 +66,3 @@
 	<!-- common script -->
 	<%@include file="./script.jsp"%>
 </body>
-</html>

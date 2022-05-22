@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,39 +14,31 @@ import javax.persistence.Table;
 public class TrainingPackTypeEntity {
 	@Id
 	@Column(name = "MaLoai")
-	private String packID;
+	private String packTypeID;
 	
 	@Column(name = "TenLoai")
-	private String packName;
+	private String packTypeName;
 	
 	@Column(name = "MoTa")
 	private String describe;
+
+	public String getPackTypeID() {
+		return packTypeID;
+	}
 	
-	@OneToMany(mappedBy = "trainingPack")
-	private Collection<TrainingPackEntity> trainingPackList;
+	@OneToMany(mappedBy = "trainingPackTypeEntity", fetch = FetchType.EAGER)
+	private Collection<TrainingPackEntity> trainingPackEntity;
 
-	public String getPackID() {
-		return packID;
+	public void setPackTypeID(String packID) {
+		this.packTypeID = packID;
 	}
 
-	public void setPackID(String packID) {
-		this.packID = packID;
+	public String getPackTypeName() {
+		return packTypeName;
 	}
 
-	public Collection<TrainingPackEntity> getTrainingPackList() {
-		return trainingPackList;
-	}
-
-	public void setTrainingPackList(Collection<TrainingPackEntity> trainingPackList) {
-		this.trainingPackList = trainingPackList;
-	}
-
-	public String getPackName() {
-		return packName;
-	}
-
-	public void setPackName(String packName) {
-		this.packName = packName;
+	public void setPackTypeName(String packName) {
+		this.packTypeName = packName;
 	}
 
 	public String getDescribe() {
@@ -58,8 +51,8 @@ public class TrainingPackTypeEntity {
 
 	public TrainingPackTypeEntity(String packID, String packName, String describe) {
 		super();
-		this.packID = packID;
-		this.packName = packName;
+		this.packTypeID = packID;
+		this.packTypeName = packName;
 		this.describe = describe;
 	}
 

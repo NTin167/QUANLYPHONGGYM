@@ -24,8 +24,6 @@ public class LoginServiceImpl implements LoginService{
             query.setParameter("username", username);
             query.setParameter("password", password);
             AccountEntity result = (AccountEntity) query.uniqueResult();
-//            System.out.println("KET QUA RESULT");
-//            System.out.println(result.toString());
             if (result != null) {
                 return result;
             }

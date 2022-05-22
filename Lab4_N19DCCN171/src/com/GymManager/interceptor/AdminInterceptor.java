@@ -11,11 +11,11 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		HttpSession ss = request.getSession();
-		if (ss.getAttribute("admin") == null) {
-			response.sendRedirect(request.getContextPath() + "/admin/login.htm");
-			return false;
-		}
+//		HttpSession ss = request.getSession();
+//		if (ss.getAttribute("admin") == null) {
+//			response.sendRedirect(request.getContextPath() + "/admin/login.htm");
+//			return false;
+//		}
 		return true;
 	}
 

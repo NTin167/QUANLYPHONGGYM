@@ -338,7 +338,7 @@
 	}
 
 	if (select(".btn-search")) {
-		on("click", ".btn-search", function(e) {
+		on("click", ".btn-search", functione) {
 			select(".search-bar-table").classList.add("active");
 			select(".btn-create span").classList.add("d-none");
 		});

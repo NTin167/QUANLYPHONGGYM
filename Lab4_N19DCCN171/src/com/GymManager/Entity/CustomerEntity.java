@@ -4,52 +4,43 @@ import java.util.*;
 import java.util.Collection;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "KHACHHANG")
 public class CustomerEntity {
 	@Id
-	@NotEmpty(message = "Mã không được bỏ trống")
-	@Column(name = "MaKH")
+	@Column(name="MaKH")
 	private String customerId;
-	@NotEmpty(message = "Tên không được bỏ trống")
-	@Column(name = "HoTen")
+	@Column(name="HoTen")
 	private String name;
-	@Column(name = "Phai")
-	private boolean gender;
-	@NotEmpty(message = "Dịa chỉ không được bỏ trống")
-	@Column(name = "DiaChi")
+	@Column(name="Phai")
+	private int gender;
+	@Column(name="DiaChi")
 	private String address;
-	@NotEmpty(message = "Email không được bỏ trống")
-	@Email(message = "Vui lòng nhập đúng định dạng email")
-	@Column(name = "Email")
+	
+	@Column(name="Email")
 	private String email;
-	@PastOrPresent(message = "Ngày sinh phải nhỏ hơn ngày hiện tại")
+	
 	@Column(name = "NgaySinh")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthday;
+	@DateTimeFormat(pattern="dd/MM/YYYY")
+	private Date dob;
+	
 	@Column(name = "SDT")
-	private String phone;
-
-	@OneToOne
-	@JoinColumn(name = "TaiKhoan")
-	private AccountEntity account;
-
-	@OneToMany(mappedBy = "customer")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Collection<RegisterEntity> registerList;
+	private String phonenumber;
+	
+	@Column(name = "TaiKhoan")
+	private String userName;
+	
+//	@ManyToOne
+//	@JoinColumn (name = "TaiKhoan")
+//	private AccountEntity accounts;
+//	
+//	@OneToMany(mappedBy = "customers", fetch = FetchType.EAGER)
+//	private Collection<RegisterEntity> registerEntities;
+	
 
 	public String getCustomerId() {
 		return customerId;
@@ -67,20 +58,20 @@ public class CustomerEntity {
 		this.name = name;
 	}
 
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
 	public String getAddress() {
 		return address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public boolean isGender() {
-		return gender;
-	}
-
-	public void setGender(boolean gender) {
-		this.gender = gender;
 	}
 
 	public String getEmail() {
@@ -91,36 +82,51 @@ public class CustomerEntity {
 		this.email = email;
 	}
 
-	public Date getBirthday() {
-		return birthday;
+	public Date getDob() {
+		return dob;
 	}
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 
-	public AccountEntity getAccount() {
-		return account;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setAccount(AccountEntity account) {
-		this.account = account;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public Collection<RegisterEntity> getRegisterList() {
-		return registerList;
+	public CustomerEntity(String customerId, String name, int gender, String address, String email, Date dob,
+			String phonenumber, String userName, AccountEntity accounts, Collection<RegisterEntity> registerEntities) {
+		super();
+		this.customerId = customerId;
+		this.name = name;
+		this.gender = gender;
+		this.address = address;
+		this.email = email;
+		this.dob = dob;
+		this.phonenumber = phonenumber;
+		this.userName = userName;
+//		this.accounts = accounts;
+//		this.registerEntities = registerEntities;
 	}
 
-	public void setRegisterList(Collection<RegisterEntity> registerList) {
-		this.registerList = registerList;
+	public CustomerEntity() {
+		super();
 	}
 
+
+	
+	
+	
 }

@@ -1,5 +1,11 @@
 eclipse.preferences.version=1
-encoding//WebContent/WEB-INF/views/homepage/navigation.jsp=UTF-8
 encoding//WebContent/controller/StudentController.java=UTF-8
+encoding//src/com/GymManager/Controller/ClassController.java=UTF-8
 encoding//src/com/GymManager/Controller/LoginController.java=UTF-8
+encoding//src/com/GymManager/Controller/PackageController.java=UTF-8
+encoding//src/com/GymManager/Entity/CustomerEntity.java=UTF-8
+encoding//src/com/GymManager/Service/impl/ClassServiceImpl.java=UTF-8
 encoding//src/com/GymManager/Service/impl/LoginServiceImpl.java=UTF-8
+encoding//src/com/GymManager/Service/impl/PTServiceImpl.java=UTF-8
+encoding//src/com/GymManager/Service/impl/TrainingPackServiceImpl.java=UTF-8
+encoding//src/com/GymManager/Service/impl/TrainingPackTypeServiceImpl.java=UTF-8

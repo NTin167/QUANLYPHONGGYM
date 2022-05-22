@@ -1,5 +1,6 @@
 package com.GymManager.Controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,12 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/homepage/")
+//@RequestMapping("/homepage/")
+@RequestMapping("/admin/")
 public class HomeController {
-	@RequestMapping("index")
-	public String index(HttpServletRequest request, HttpSession session) {
-		return "homepage/index";
-	}
+//	@RequestMapping("index")
+//	public String index(HttpServletRequest request, HttpSession session) {
+//		return "homepage/index";
+//	}
+//	@RequestMapping("insert")
+//	public String index(HttpServletRequest request, HttpSession session) {
+//		return "admin/addPackage-type";
+//	}
 
 	@RequestMapping("log-in")
 	public String login(HttpServletRequest request, HttpSession session) {

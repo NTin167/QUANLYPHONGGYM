@@ -1,5 +1,6 @@
 package com.GymManager.Controller;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ProfileController {
 	@Autowired
 	SessionFactory factory;
+	@Autowired 
+	HttpSession session;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap model) {

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,6 @@
 							<h5
 								class="card-title align-items-center d-flex justify-content-between transitioning">
 								Danh sách lớp tập</h5>
-
 							<!-- Table with stripped rows -->
 							<table class="table" id="my-data-table">
 								<thead>
@@ -38,17 +39,18 @@
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="C" items="${classEntity}">
 									<tr>
-										<td>L000001</td>
-										<td>Gói tập xxx</td>
-										<td>Nguyễn Minh Nhật</td>
+										<td>${C.classId}</td>
+										<td>${C.packId}</td>
+										<td>${C.PT}</td>
 										<td><span class="badge rounded-pill bg-success">Có
 												thể đăng ký</span></td>
-										<td class="account-state">20/22</td>
+										<td class="account-state">${C.maxPP }</td>
 
 										<td class="text-center">
 											<button class="btn btn-outline-warning btn-light btn-sm"
-												data-bs-toggle="modal" data-bs-target="#create"
+												onclick="window.location.href = '${pageContext.request.contextPath}/admin/class/updateClass/${C.classId}.htm'"
 												title="Chỉnh sửa">
 												<i class="fa-solid fa-pen-to-square"></i>
 											</button>
@@ -64,6 +66,7 @@
 											</button>
 										</td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- End Table with stripped rows -->
@@ -72,36 +75,42 @@
 				</div>
 			</div>
 		</section>
-
-		<!-- modal  -->
-
-		<div class="modal fade" id="create" tabindex="-1">
+		<!-- chỉnh sửa  -->
+		<!--   -->
+		<div class="modal fade" id="modal-update" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header bg-primary text-white px-3 py-2">
-						<h5 class="modal-title">Thêm lớp tập</h5>
+						<h5 class="modal-title">Sửa lớp tập</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form class="row g-3">
+						<form method="post" action="${pageContext.request.contextPath}/admin/class/update/${classEntityUpdate.classId}.htm"
+						 modelAttribute="updateC"  class="row g-3">
 							<div class="col-md-12">
 								<label for="inputName" class="form-label">Mã:
-									<span class="employeeId text-danger">L0000002</span>
+									<span class="employeeId text-danger">
+										<input type="text" class="form-control" name="classId"
+									 		value="${classEntityUpdate.classId}" readonly/>
+									</span>
 								</label>
 							</div>
 							<div class="col-md-6">
-								<label for="input-package" class="form-label">Gói tập</label> <select
+								<label for="input-package" class="form-label">Gói tập</label> 
+								<select name="packIDUpdate"
 									id="input-package" class="form-select">
-									<option selected>Chọn</option>
-									<option>Gói xxx</option>
+										<option name="PTUpdate" value="${X.trainingEntity.packID}"> ${X.trainingEntity.packID} </option>
+
+									
 								</select>
 							</div>
 							<div class="col-md-6">
 								<label for="input-pt" class="form-label">PT</label> <select
 									id="input-pt" class="form-select">
-									<option selected>Chọn</option>
-									<option>Nguyễn Minh Nhật</option>
+									<c:forEach var="X" items="${ptEntity }">
+										<option value="${X.ptID}"> ${X.ptID} </option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="col-md-6">
@@ -135,12 +144,91 @@
 							</div>
 
 							<div class="text-end mt-3">
-								<button type="submit" class="btn btn-primary">Xác nhận
+								<button type="submit" name="btnUpdate" class="btn btn-primary">Xác nhận
 								</button>
 								<button type="button" class="btn btn-secondary close-form"
 									data-bs-dismiss="modal">Đóng</button>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- modal  -->
+		<!-- thêm mới lớp  -->
+		<div class="modal fade" id="modal-create" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header bg-primary text-white px-3 py-2">
+						<h5 class="modal-title">Thêm lớp tập</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form:form  id="class"
+						action="admin/class/insert.htm" method="post" class="row g-3"
+						modelAttribute="classer">
+							<div class="col-md-12">
+								<label for="inputName" class="form-label">Mã:
+									<form:input path="classId" type="text" class="form-control" />
+								</label>
+							</div>
+							<div class="col-md-6">
+								<label for="input-package" class="form-label">Gói tập</label> 
+								<form:select path="packId"
+									id="input-package" class="form-select">
+									<c:forEach var="X" items="${trainingPackEntity}">
+				                        <form:option value="${X.packID}">${X.packID}</form:option>
+				                    </c:forEach>
+								</form:select>
+							</div>
+							<div class="col-md-6">
+								<label for="input-pt" class="form-label">PT</label> 
+								<form:select path="PT"
+									id="input-pt" class="form-select">
+									<c:forEach var="T" items="${ptEntity}">
+				                        <form:option value="${T.ptID}">${T.ptID}</form:option>
+				                    </c:forEach>
+								</form:select>
+							</div>
+							<div class="col-md-6">
+								<label for="input-open-register-day" class="form-label">Ngày
+									mở đăng ký</label> <form:input path="dateOpen" type="date" class="form-control"
+									id="input-open-register-day" />
+							</div>
+							<div class="col-md-6">
+								<label for="input-close-register-day" class="form-label">Ngày
+									đóng đăng ký</label> <form:input path="dateClose" type="date" class="form-control"
+									id="input-close-register-day" />
+							</div>
+
+							<div class="col-md-6">
+								<label for="input-close-register-day" class="form-label">Ngày
+									bắt đầu lớp</label> <form:input path="dateStart" type="date" class="form-control"
+									id="input-close-register-day" />
+							</div>
+
+							<div class="col-md-6">
+								<label for="inputPhone" class="form-label">Số
+									người đăng ký tối đa</label> <form:input path="maxPP" type="number" class="form-control" />
+							</div>
+							<div>
+								<button class="btn col-12 btn-outline-primary btn-light"
+									type="button" data-bs-target="#time-table"
+									data-bs-toggle="modal">
+									<i class="bi bi-plus-circle"></i> <span class="te">Tạo
+										TKB</span>
+								</button>
+							</div>
+
+							<div class="text-end mt-3">
+								<button type="submit" name="btnCreate" class="btn btn-primary">Xác nhận
+								</button>
+								<button type="button" class="btn btn-secondary close-form"
+									data-bs-dismiss="modal">Đóng</button>
+							</div>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -157,9 +245,10 @@
 
 					<div class="modal-body">
 						<div class="row g-3 d-flex flex-column gap-4 pt-4">
+
 							<div class="row">
 								<div class="col-lg-6 col-md-6 label">Mã</div>
-								<div class="col-lg-6 col-md-6">NV000002</div>
+								<div class="col-lg-6 col-md-6">${classEntityUpdate.classId }</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6 col-md-6 label">Gói</div>
@@ -193,6 +282,7 @@
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">Đóng</button>
 							</div>
+							
 						</div>
 						<!-- End Multi Columns Form -->
 					</div>
@@ -213,14 +303,14 @@
 											Thời Khoá Biểu
 											<div class="header-action d-flex gap-1">
 												<button type="button" class="btn btn-primary"
-													data-bs-target="#contract-registration-modal"
+													data-bs-target="#modal-create"
 													data-bs-toggle="modal">
 													Xác nhận</button>
 
 												<div class="search-bar-table d-flex align-items-stretch">
 													<div class="">
 														<button type="button" class="btn btn-secondary btn-search"
-															data-bs-target="#contract-registration-modal"
+															data-bs-target="#modal-create"
 															data-bs-toggle="modal">
 															Huỷ bỏ</button>
 													</div>
@@ -252,78 +342,78 @@
 												<tbody>
 													<tr>
 														<td class="align-middle bg-light">Sáng</td>
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T2" id="T2-M" value="0" class="form-check-input" />
 															<label for="T2-M"></label></td>
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T3" id="T3-M" value="0" class="form-check-input" />
 															<label for="T3-M"></label></td>
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T4" id="T4-M" value="0" class="form-check-input" />
 															<label for="T4-M"></label></td>
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T5" id="T5-M" value="0" class="form-check-input" />
 															<label for="T5-M"></label></td>
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T6" id="T6-M" value="0" class="form-check-input" />
 															<label for="T6-M"></label></td>
 
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T7" id="T7-M" value="0" class="form-check-input" />
 															<label for="T7-M"></label></td>
 
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T8" id="T8-M" value="0" class="form-check-input" />
 															<label for="T8-M"></label></td>
 													</tr>
 
 													<tr>
 														<td class="align-middle bg-light">Chiều</td>
-														<td class="td-time-table"><input type="radio"
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T2" id="T2-A" value="1" class="form-check-input" />
 															<label for="T2-A"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T3" id="T3-A" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T3" id="T3-A" value="1" class="form-check-input" />
 															<label for="T3-A"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T4" id="T4-A" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T4" id="T4-A" value="1" class="form-check-input" />
 															<label for="T4-A"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T5" id="T5-A" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T5" id="T5-A" value="1" class="form-check-input" />
 															<label for="T5-A"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T6" id="T6-A" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T6" id="T6-A" value="1" class="form-check-input" />
 															<label for="T6-A"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T7" id="T7-A" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T7" id="T7-A" value="1" class="form-check-input" />
 															<label for="T7-A"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T8" id="T8-A" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T8" id="T8-A" value="1" class="form-check-input" />
 															<label for="T8-A"></label></td>
 													</tr>
 
 													<tr>
-														<td class="align-middle bg-light">Tối</td>
-														<td class="td-time-table"><input type="radio"
+														<td class="align-middle bg-light">Tối</td> 
+														<td class="td-time-table"><input type="radio" form="class"
 															name="T2" id="T2-E" value="2" class="form-check-input" />
 															<label for="T2-E"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T3" id="T3-E" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T3" id="T3-E" value="2" class="form-check-input" />
 															<label for="T3-E"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T4" id="T4-E" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T4" id="T4-E" value="2" class="form-check-input" />
 															<label for="T4-E"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T5" id="T5-E" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T5" id="T5-E" value="2" class="form-check-input" />
 															<label for="T5-E"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T6" id="T6-E" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T6" id="T6-E" value="2" class="form-check-input" />
 															<label for="T6-E"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T7" id="T7-E" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T7" id="T7-E" value="2" class="form-check-input" />
 															<label for="T7-E"></label></td>
-														<td class="td-time-table"><input type="radio"
-															name="T8" id="T8-E" value="0" class="form-check-input" />
+														<td class="td-time-table"><input type="radio" form="class"
+															name="T8" id="T8-E" value="2" class="form-check-input" />
 															<label for="T8-E"></label></td>
 													</tr>
 												</tbody>
